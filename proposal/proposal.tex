@@ -51,8 +51,8 @@
 \usepackage[T1]{fontenc}
 \usepackage{geometry}
 \geometry{verbose,tmargin=2.5cm,bmargin=2.5cm,lmargin=1.5cm,rmargin=1.5cm}
-\setcounter{secnumdepth}{2}
-\setcounter{tocdepth}{2}
+%\setcounter{secnumdepth}{2}
+%\setcounter{tocdepth}{2}
 \usepackage{url}
 \usepackage[unicode=true,pdfusetitle,
   bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=2,
@@ -64,8 +64,8 @@ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
 \usepackage{tikz}
  %changes default sectioning commands -> 1,a, etc.
 %\usepackage{breakurl}
-\renewcommand{\thesubsection}{(\alph{subsection})}
-\renewcommand{\thesubsubsection}{\roman{subsection}.}
+%\renewcommand{\thesubsection}{(\alph{subsection})}
+%\renewcommand{\thesubsubsection}{\roman{subsection}.}
 \usepackage{lastpage}
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -74,8 +74,8 @@ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
 \lhead{}
 \chead{\leftmark}
 \rhead{}
-\lfoot{Aaron Gonzales; Algorithms}
-\cfoot{Homework X}
+\lfoot{Gonzales and Delora }
+\cfoot{Data Mining Proposal}
 \rfoot{Page \thepage\ of \pageref{LastPage}}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 
@@ -85,19 +85,165 @@ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
 \author{Aaron Gonzales, Adam Delora}
 \maketitle
 
-
-\section{Introduction}
-
-blah blah blah
-
-
-
+\section{abstract}
 
 
 \section{Introduction}
 
+
+High level goal - Predict market behaviour
+
+correlation or relationship between market activity and semantic or sentiment analysis
+
+
+
+
+
+
+\section{Data}
+
+We will need two data sources for this project: 
+\begin{itemize}
+	\item Finance data
+	\item linguistically rich data
+\end{itemize}
+
+\subsection{Finance Data}
+\subsubsection{Sources}
+Financial data is relatively easy to get - we plan on using the Google finance
+API for this purpose. The max history availble through their api is 10 days,
+and during the collection period, we will pull the data every ten days to have
+a complete history during our experimental period. We will collect hourly
+updates for the period and the data is already in a clean CSV format, which
+will require trivial organization on our part, though items will have to be
+checked for date compatibility. 
+\subsubsection{Stocks and Indices}
+We will collect data on several popular, high-volume stocks:
+
+\begin{itemize}
+	\item Apple (AAPL)
+	\item Google (GOOG)
+	\item Microsoft (MSFT)
+	\item Twitter (TWTR)
+	\item Amazon (AMZN)
+	\item Facebook (FB)
+\end{itemize}
+
+and we will also the NASDAQ 100 equity index for further analysis.
+
+
+\subsection{Semantic Data}
+Twitter is a social networking service that allows any user to post 140
+character updates (``tweets'') to the site. Founded in 2006, it has grown to be
+a top-ten visited website (cite?) and has 255 million monthly active users
+producing approximately 500 million tweets per day. It has been a bountiful
+data source for inumerable researchers across a motley assortment of
+backgrounds, e.g., computer science, economics, sociologists, political
+scientist, and linguistics.
+
+\url{https://investor.twitterinc.com/releasedetail.cfm?ReleaseID=843245}
+\url{http://www.sec.gov/Archives/edgar/data/1418091/000119312513390321/d564001ds1.htm#toc564001_1}
+
+Twitter has two APIs available, the 
+
+
+\begin{lstlisting}
+{
+  "coordinates": null,
+  "created_at": "Thu Oct 21 16:02:46 +0000 2010",
+  "favorited": false,
+  "truncated": false,
+  "id_str": "28039652140",
+  "entities": {
+    "urls": [
+      {
+        "expanded_url": null,
+        "url": "http://gnip.com/success_stories",
+        "indices": [
+          69,
+          100
+        ]
+      }
+    ],
+    "hashtags": [
+ 
+    ],
+    "user_mentions": [
+      {
+        "name": "Gnip, Inc.",
+        "id_str": "16958875",
+        "id": 16958875,
+        "indices": [
+          25,
+          30
+        ],
+        "screen_name": "gnip"
+      }
+    ]
+  },
+  "in_reply_to_user_id_str": null,
+  "text": "what we've been up to at @gnip -- delivering data to happy customers http://gnip.com/success_stories",
+  "contributors": null,
+  "id": 28039652140,
+  "retweet_count": null,
+  "in_reply_to_status_id_str": null,
+  "geo": null,
+  "retweeted": false,
+  "in_reply_to_user_id": null,
+  "user": {
+    "profile_sidebar_border_color": "C0DEED",
+    "name": "Gnip, Inc.",
+    "profile_sidebar_fill_color": "DDEEF6",
+    "profile_background_tile": false,
+    "profile_image_url": "http://a3.twimg.com/profile_images/62803643/icon_normal.png",
+    "location": "Boulder, CO",
+    "created_at": "Fri Oct 24 23:22:09 +0000 2008",
+    "id_str": "16958875",
+    "follow_request_sent": false,
+    "profile_link_color": "0084B4",
+    "favourites_count": 1,
+    "url": "http://blog.gnip.com",
+    "contributors_enabled": false,
+    "utc_offset": -25200,
+    "id": 16958875,
+    "profile_use_background_image": true,
+    "listed_count": 23,
+    "protected": false,
+    "lang": "en",
+    "profile_text_color": "333333",
+    "followers_count": 260,
+    "time_zone": "Mountain Time (US & Canada)",
+    "verified": false,
+    "geo_enabled": true,
+    "profile_background_color": "C0DEED",
+    "notifications": false,
+    "description": "Gnip makes it really easy for you to collect social data for your business.",
+    "friends_count": 71,
+    "profile_background_image_url": "http://s.twimg.com/a/1287010001/images/themes/theme1/bg.png",
+    "statuses_count": 302,
+    "screen_name": "gnip",
+    "following": false,
+    "show_all_inline_media": false
+  },
+  "in_reply_to_screen_name": null,
+  "source": "web",
+  "place": null,
+  "in_reply_to_status_id": null
+}
+\end{lstlisting}
+
+
+
+\section{hypothesis}
+
 blah blah blah
 
+\section{method}
 
+blah blah blah
+
+\section{Conclusion}
+
+blah blah blah
 
 \end{document}
