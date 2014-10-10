@@ -1,44 +1,65 @@
 from slistener import SListener
-import time, tweepy, sys
+import twitterDevKeys
+import time, tweepy, sys, getopt
 
 ## note that these access tokens and keys are for one app, the second set of
 ## keys will be shown below these
-access_token= "165837734-B4v6m0pIvXsXncbdofsxHUP9vjRAdiTR9EMrQRbQ"
-access_token_secret = "mTPYXBdSNuvSXdAZwT1Q8UP1aUtTZyzGD3b86UaRv4LYt"
-consumer_key = "STtyAAdlg6XPC5LTOkGiZSQu0"
-consumer_secret = "bB8nCS2h8WWCq7jVXTqrXOBJEci3FDS0vC68RYNQEhpglQ5Gw3"
-
-access_token2= "165837734-eRt5czqtEfmKwchItkO0Mt9WVOa5kQQndOaLGPCl"
-access_token_secret2 = "kMSfPqTJG5qOoQqw8BJYF6fe9e2Zcbrwbi3IEURExgkd6"
-consumer_key2 = "4b2nMeO5i1AjTuriHhZSRXTzb"
-consumer_secret2 = "uZZwhLHs0JUbim7GymmteyFBrC4UQz78QWGVRHs3j6MfroyyCT"
 
 
 
 
-auth = tweepy.OAuthHandler(consumer_key2, consumer_secret2)
-auth.set_access_token(access_token2, access_token_secret2)
-api      = tweepy.API(auth)
 
+def main(argv):
+    try:
+        opts, args = getopt.getopt(argv, "h:kj", ["help", "key=" ])
+    except getopt.GetoptError:
+        sys.exit(2)
+    for opt, arg in opts:
+        if opt in ("-h", "help"):
+            sys.exit()
+        elif opt == '-k':
+            auth = tweepy.OAuthHandler(twitterDevKeys.consumer_key,
+                    twitterDevKeys.consumer_secret)
+            auth.set_access_token(twitterDevKeys.access_token,
+                    twitterDevKeys.access_token_secret)
+            print "Accessing with %s key" % (twitterDevKeys.access_token)
+            key = 1
 
-def main( mode = 1 ):
-	#track  = ['AAPL', 'apple', 'iphone', 'tim cook', 'ipad', 'mac']
-	#track  = ['AAPL', 'apple', 'mac', 'tim cook', 'GOOG', 'google', 'gmail', 'youtube', 
-			#'windows', 'microsoft', 'msft'] 
-	track = ['twitter', 'tweet', 'twtr', 'amazon', 'amzn', 'prime', 'aws' ]
-	follow = []
+        elif opt == '-j':
+            auth = tweepy.OAuthHandler(twitterDevKeys.consumer_key2,
+                    twitterDevKeys.consumer_secret2)
+            auth.set_access_token(twitterDevKeys.access_token2, twitterDevKeys.access_token_secret2)
+            print "Accessing with %s key" % (twitterDevKeys.access_token2)
+            key = 2
 
-	listen = SListener(api, 'stocktweets')
-	stream = tweepy.Stream(auth, listen)
+        else: 
+            auth = tweepy.OAuthHandler(twitterDevKeys.consumer_key,
+                    twitterDevKeys.consumer_secret)
+            auth.set_access_token(twitterDevKeys.access_token, twitterDevKeys.access_token_secret)
+            print "Accessing with %s key" % (twitterDevKeys.access_token)
+            key = 1
 
-	print "Streaming started on %s keywords and %s users ..." % (len(track), len(follow))
+    api = tweepy.API(auth)
 
-	try: 
-		stream.filter(track = track, follow = follow)
-		#stream.sample()
-	except:
-		print "error!"
-		stream.disconnect()
+    if key == 1:
+        track  = ['AAPL', 'apple', 'mac', 'tim cook', 'GOOG', 'google', 'gmail',
+                'youtube'] 
+    elif key == 2:
+        track = ['twitter', 'tweet', 'twtr', 'amazon', 'amzn', 'prime', 'aws' ]
+
+    follow = []
+
+    listen = SListener(api, 'stocktweets')
+    stream = tweepy.Stream(auth, listen)
+
+    print "Streaming started on %s keywords and %s users ..." % (len(track), len(follow))
+
+    try: 
+        stream.filter(track = track, follow = follow)
+            #stream.sample()
+    except:
+        print "error!"
+        stream.disconnect()
 
 if __name__ == '__main__':
-	main()
+    main(sys.argv[1:])
