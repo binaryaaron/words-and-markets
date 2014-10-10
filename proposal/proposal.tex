@@ -85,19 +85,14 @@ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
 \author{Aaron Gonzales, Adam Delora}
 \maketitle
 
-\section{abstract}
 
 
 \section{Introduction}
 
 
-High level goal - Predict market behaviour
+High level goal - Predict market behaviour correlation or relationship between market activity and semantic or sentiment analysis.
 
-correlation or relationship between market activity and semantic or sentiment analysis
-
-
-
-
+Twitter is a social networking service that allows users to send “tweets” that are 140 characters in length. Tweets can be used for things like personal communications, advertisements and public relations.  The stock market is a set of buyers and sellers that can buy or sell security. The purpose of the stock market is to raise money for a company. It allows for the buying and selling of ownership in a company. This also allows for the liquidity or the ability to quickly buy and sell ownership in a company. The stock market is often viewed in relationship to a country’s or company’s economic status and strength. Our goal is to see how the sentiment of tweets relates to the market.
 
 
 \section{Data}
@@ -110,13 +105,14 @@ We will need two data sources for this project:
 
 \subsection{Finance Data}
 \subsubsection{Sources}
-Financial data is relatively easy to get - we plan on using the Google finance
-API for this purpose. The max history availble through their api is 10 days,
-and during the collection period, we will pull the data every ten days to have
+Financial data is relatively easy to get - we plan on using the Yahoo finance
+API for this purpose. The max history available through their api for hourly data is 5 days.
+During the collection period, we will pull the data every to have
 a complete history during our experimental period. We will collect hourly
 updates for the period and the data is already in a clean CSV format, which
 will require trivial organization on our part, though items will have to be
 checked for date compatibility. 
+
 \subsubsection{Stocks and Indices}
 We will collect data on several popular, high-volume stocks:
 
@@ -137,14 +133,14 @@ Twitter is a social networking service that allows any user to post 140
 character updates (``tweets'') to the site. Founded in 2006, it has grown to be
 a top-ten visited website (cite?) and has 255 million monthly active users
 producing approximately 500 million tweets per day. It has been a bountiful
-data source for inumerable researchers across a motley assortment of
+data source for innumerable researchers across a motley assortment of
 backgrounds, e.g., computer science, economics, sociologists, political
 scientist, and linguistics.
 
 \url{https://investor.twitterinc.com/releasedetail.cfm?ReleaseID=843245}
 \url{http://www.sec.gov/Archives/edgar/data/1418091/000119312513390321/d564001ds1.htm#toc564001_1}
 
-Twitter has two APIs available, the 
+Twitter has two APIs available, one for Streaming data that provides direct access to the main stream of tweets
 
 
 \begin{lstlisting}
@@ -236,14 +232,67 @@ Twitter has two APIs available, the
 
 \section{hypothesis}
 
-blah blah blah
+There is a relationship between twitter sentiment and the movements of the stock market. 
 
 \section{method}
 
-blah blah blah
+\subsection{Data Capture and Storage}
+
+Luckily, there are many tools available to help expedite our collection and pre-processing of the data. Tweets will be obtained during market hours (0900 - 1630 M-F, EST) using the Twitter streaming api, accessed via Python using the Tweepy package. Only the following information from tweets will be stored:
+
+\begin{enumerate}
+\item tweet text
+\item created at
+\item in reply to user
+\item user id
+\item location - author’s location
+\item favorites count
+\item statuses count
+\item friends count
+\item time zone
+\item utc offset
+\item lang
+\item followers count
+\item coordinates (geojson)
+\item source
+\end{enumerate}
+
+As to reduce our data-processing and storage overhead. While network and location data are not focal points of our project, they will be used to help identify clusters of influential people if our hypothesis pans out. Tests estimate anywhere between 1.2-2.2 million tweets per day during our collection window, for a very rough estimate of 30 million total tweets collected. Initially, tweets will be saved as compressed JSON files. 
+
+
+The stock market data will be taken from stooq. Stooq is a Polish website that offers free historical data in metastock and ASCII format for daily, hourly and 5 minute timeframes. The data consists of:
+\begin{enumerate}
+\item open
+\item high
+\item low
+\item close
+\item volume
+\end{enumerate}
+The storage overhead for this data will be low. The stock market runs from 9:30 am to 4:00 pm eastern time, which is 6 hours and 30 minutes. For the hourly data that is 7 timepoints per day and for the 5 minute data that is 78 timepoints. The 5 minute data is only stored for a week, so if we want to bin the data for different timeframes, we will have to collect this data every week.  The data will be initially stored in csv files.
+
+
+Data will be stored together in a Mongo NoSQL database, chosen for its flexibility scalability, schemaless storage (each bin of financial data will have all associated tweets with that bin’s ‘json document’), and elegant queries. Working with the Mongo database will be handled through Python. 
+
+We plan on collecting data over a one-month period starting 2014-10-13 and ending 2014-11-07. 
+
+\subsection{Analysis}
+
+\subsubsection{Cleaning and Organization}
+After our data collection period, the tweets will be cleaned for consistency. We will discard tweets (possibly during collection) that are not from the United States or in English. If possible, Tweets will be filtered through a spam-detection tool to make the data less noisy. 
+
+Data will be binned into one-hour bins and tweets within that timeframe will be associated with that bin. 
+
+\subsubsection{Sentiment Analysis}
+The AFINN database is a tagged lexical database used to quantify sentiment. There are 2477 words with semantic scores that can be used to get an aggregate sentiment value for a given tweet. The tweets during a specific timeframe will have an average semantic score for each time bin. Other sentiment measures may be used, time allowing. 
+
+\subsubsection{Analysis}
+We will use the time-series analysis and dimensionality reduction features within MATLAB to do economic modeling and a k-means clustering of our data. As our analysis is exploratory, initial modelling efforts will likely lead us to alternative analysis approaches, as will further ideas gained from this class. 
+
 
 \section{Conclusion}
+While other attempts have been made to predict market flow based on Twitter data, most have focused on a single equity index and have been limited to binary or categorical representations of mood. Our attempt is more broad in nature and can yield interesting, if any, information on relationships between people’s words and the market. 
 
-blah blah blah
+
+\section{References}
 
 \end{document}
