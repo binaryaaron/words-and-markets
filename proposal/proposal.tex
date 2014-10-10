@@ -1,0 +1,371 @@
+%%%%%latex preamble%%%%%
+\documentclass[titlepage]{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+  \linewidth
+  \else
+  \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\usepackage{listings}
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=Python,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2,                       % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+\usepackage{alltt}
+\usepackage[sc]{mathpazo}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=2.5cm,bmargin=2.5cm, lmargin=2cm, rmargin=2cm}
+%\setcounter{secnumdepth}{2}
+%\setcounter{tocdepth}{2}
+\usepackage{url}
+\usepackage[unicode=true,pdfusetitle,
+  bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=2,
+breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
+{hyperref}
+\hypersetup{pdfstartview={XYZ null null 1}}
+\usepackage{float}
+\usepackage{bm}
+\usepackage{tikz}
+ %changes default sectioning commands -> 1,a, etc.
+%\usepackage{breakurl}
+%\renewcommand{\thesubsection}{(\alph{subsection})}
+%\renewcommand{\thesubsubsection}{\roman{subsection}.}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+%%% Header and Footer %%% 
+\lhead{}
+\chead{\leftmark}
+\rhead{}
+\lfoot{Gonzales and Delora}
+\cfoot{Data Mining Proposal}
+\rfoot{Page \thepage\ of \pageref{LastPage}}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+
+\usepackage[
+  backend=biber,
+  style=authoryear-icomp,
+  sortlocale=de_DE,
+  natbib=true,
+  url=false, 
+  doi=true,
+  eprint=false
+]{biblatex}
+
+\bibliography{proposal}  % list here all the bibliographies that
+			     % you need. 
+
+\begin{document}
+
+\title{CS591 Data Mining \\ Project Proposal: \\ Mining Moods and Markets \\
+Instructor: Abdullah Mueen, PhD}
+\author{Aaron Gonzales, Adam Delora}
+\maketitle
+
+
+
+\section{Introduction}
+
+Twitter is a social networking service and microblogging platform that allows
+users to send ``tweets'' that are 140 characters in length. Tweets can be used
+for any number of things, e.g., personal communications, advertisements, public relations.
+The stock market is a set of buyers and sellers that can buy or sell securities.
+The purpose of the stock market is to raise money for a company, allowing for
+buying and selling ownership in a company. Stock markets also allow for the
+liquidity or the ability to quickly buy and sell ownership in a company. The
+stock market is often viewed in relationship to a country's or company's
+economic status and strength. An incredible amount of money passes through and
+is represented by stock markets - the NASDAQ exchange had a market
+capitalization of \$6,788,000,000,000 (USD) in August 2014 
+(\url{http://www.world-exchanges.org/statistics/monthly-reports}) and are
+worthy of study. This is by no means the first attempt to quantify the markets,
+as this has been done for an incredibly long time, but the current age of data
+allows us to examine and quantify relationships in ways that were hardly
+possible in decades past. Our goal is to see how the sentiment of tweets
+relates to changes in the market. \cite{twitterStockMarketPrediction}
+previously used Twitter data to predict the market movements using binary
+measures of sentiment on a market index (Dow Jones Industrial Average) and our work
+will build and differ from theirs in several fundamental ways enumerated below. 
+
+\section{Data}
+
+We will need two data sources for this project: 
+\begin{itemize}
+	\item Finance data
+	\item linguistically rich data
+\end{itemize}
+
+\subsection{Finance Data}
+\subsubsection{Sources}
+The stock market data will be taken from Stooq(\url{http://stooq.com}). Stooq
+is a Polish website that offers free historical data in metastock and ASCII
+format for daily, hourly and five-minute timeframes. The data consists of:
+\begin{enumerate}
+\item open
+\item high
+\item low
+\item close
+\item volume
+\end{enumerate}
+
+The storage overhead for this data will be low. The stock market runs from 9:30
+am to 4:00 pm eastern time, which is 6 hours and 30 minutes. For the hourly
+data, that is 7 timepoints per day and for the 5 minute data, that is 78
+timepoints. Stooq stores the 5 minute data is for one week, so if we want to bin
+the data for different timeframes, we will have to collect this data every
+week. The data will be initially stored in csv files.
+
+\subsubsection{Stocks and Indices}
+We will collect data on and relating to several popular, high-volume stocks:
+
+\begin{itemize}
+	\item Apple (AAPL)
+	\item Google (GOOG)
+	\item Microsoft (MSFT)
+	\item Twitter (TWTR)
+	\item Amazon (AMZN)
+	\item Facebook (FB)
+\end{itemize}
+
+We will also the NASDAQ 100 equity index for further analysis and
+comparison as appropriate.
+
+
+\subsection{Semantic Data}
+Twitter is a social networking service that allows any user to post 140
+character updates (``tweets'') to the site. Founded in 2006, it has grown to be
+a top-ten visited website (cite?) and has 255 million monthly active users
+producing approximately 500 million tweets per day. It has been a bountiful
+data source for innumerable researchers across a motley assortment of
+backgrounds, e.g., computer science, economics, sociologists, political
+scientist, and linguistics (\cite{twitterIPO, twitterInvestorReport} ).
+
+Twitter has two APIs available, one for Streaming data that provides direct
+access to the main stream of tweets. Tweets are formatted in JSON and an
+example tweet is shown in \ref{lst:tweet}.
+
+\begin{lstlisting}[label={lst:tweet}]
+{
+  "coordinates": null,
+  "created_at": "Thu Oct 21 16:02:46 +0000 2010",
+  "favorited": false,
+  "truncated": false,
+  "id_str": "28039652140",
+  "entities": {
+    "urls": [
+      {
+        "expanded_url": null,
+        "url": "http://gnip.com/success_stories",
+        "indices": [
+          69,
+          100
+        ]
+      }
+    ],
+    "hashtags": [
+ 
+    ],
+    "user_mentions": [
+      {
+        "name": "Gnip, Inc.",
+        "id_str": "16958875",
+        "id": 16958875,
+        "indices": [
+          25,
+          30
+        ],
+        "screen_name": "gnip"
+      }
+    ]
+  },
+  "in_reply_to_user_id_str": null,
+  "text": "what we've been up to at @gnip -- delivering data to happy customers http://gnip.com/success_stories",
+  "contributors": null,
+  "id": 28039652140,
+  "retweet_count": null,
+  "in_reply_to_status_id_str": null,
+  "geo": null,
+  "retweeted": false,
+  "in_reply_to_user_id": null,
+  "user": {
+    "profile_sidebar_border_color": "C0DEED",
+    "name": "Gnip, Inc.",
+    "profile_sidebar_fill_color": "DDEEF6",
+    "profile_background_tile": false,
+    "profile_image_url": "http://a3.twimg.com/profile_images/62803643/icon_normal.png",
+    "location": "Boulder, CO",
+    "created_at": "Fri Oct 24 23:22:09 +0000 2008",
+    "id_str": "16958875",
+    "follow_request_sent": false,
+    "profile_link_color": "0084B4",
+    "favourites_count": 1,
+    "url": "http://blog.gnip.com",
+    "contributors_enabled": false,
+    "utc_offset": -25200,
+    "id": 16958875,
+    "profile_use_background_image": true,
+    "listed_count": 23,
+    "protected": false,
+    "lang": "en",
+    "profile_text_color": "333333",
+    "followers_count": 260,
+    "time_zone": "Mountain Time (US & Canada)",
+    "verified": false,
+    "geo_enabled": true,
+    "profile_background_color": "C0DEED",
+    "notifications": false,
+    "description": "Gnip makes it really easy for you to collect social data for your business.",
+    "friends_count": 71,
+    "profile_background_image_url": "http://s.twimg.com/a/1287010001/images/themes/theme1/bg.png",
+    "statuses_count": 302,
+    "screen_name": "gnip",
+    "following": false,
+    "show_all_inline_media": false
+  },
+  "in_reply_to_screen_name": null,
+  "source": "web",
+  "place": null,
+  "in_reply_to_status_id": null
+}
+\end{lstlisting}
+Tweets are obviously rich with information beyond the 140 characters a user may
+send out. We will restrict our initial analyses to defined fields discussed in
+\ref{sec:method}.
+
+
+\section{hypothesis}
+
+Simply put, there is a relationship between twitter sentiment around specific
+tweets and the movements of the stock market. 
+
+\section{Method}
+\label{sec:method}
+
+\subsection{Data Capture and Storage}
+
+Luckily, there are many tools available to help expedite our collection and pre-processing 
+of the data. Tweets will be obtained during market hours (0900 - 1630 M-F, EST) 
+using the Twitter streaming api, accessed via Python using the Tweepy
+(\cite{tweepy}) package. To reduce our storage and processing overhead, only the following information from tweets will be stored:
+
+\begin{enumerate}
+\item tweet text
+\item created at
+\item in reply to user
+\item user id
+\item location - author’s location
+\item favorites count
+\item statuses count
+\item friends count
+\item time zone
+\item utc offset
+\item lang
+\item followers count
+\item coordinates (geojson)
+\item source
+\end{enumerate}
+
+
+As to reduce our data-processing and storage overhead. While network and
+location data are not focal points of our project, they will be used to help
+identify clusters of influential people if our hypothesis pans out. Initially,
+tweets will be saved as compressed JSON files. 
+
+
+After collection, data will be stored together in a Mongo NoSQL database, chosen for its
+flexibility scalability, schemaless storage (each bin of financial data will
+have all associated tweets with that bin’s 'json document'), and elegant
+queries. Working with the Mongo database will be handled through Python. 
+
+Tweets will be collected that match the following keyword criteria relating to the
+companies and their products listed above:
+\begin{enumerate}
+  \item 'goog', 'google', 'gmail', 'youtube', 'larry page', 'sergey brin'
+  \item 'aapl', 'apple', 'tim cook', 'ipad', 'mac'
+  \item 'msft', 'windows','satya nadella' 'microsoft', 'office365', 'outlook', 'onenote'
+  \item 'twtr','twitter', 'tweet'
+  \item 'amzn', 'amazon', 'prime', 'aws', 'kindle'
+  \item 'fb', 'facebook', 'mark' 'zuckerberg', 'zuckerberg', 'instagram'
+\end{enumerate}
+
+We plan on collecting data over a one-month period starting 2014-10-13 and
+ending 2014-11-07.  Current tests estimate collection of anywhere between
+1.2-3.2 million tweets per day during our collection window, for a very rough
+estimate of 30-50 million total tweets collected.  
+
+\subsection{Analysis}
+
+\subsubsection{Cleaning and Organization}
+After our data collection period, the tweets will be cleaned for consistency.
+We will discard tweets (possibly during collection) that are not from the
+United States or in English. If possible, we will use a 
+spam-detection tool or filter the tweets for spam to make the data less noisy,
+as many tweets have content equivalent to email spam.
+Data will be binned into one-hour bins and tweets within that timeframe will be
+associated with that bin. 
+
+\subsubsection{Sentiment Analysis}
+The AFINN database (\cite{ANEW}) is a tagged lexical database used to quantify sentiment.
+There are 2477 words with semantic scores that can be used to get an aggregate
+sentiment value for a given tweet. The tweets during a specific timeframe will
+have an average semantic score for each time bin. Other sentiment measures may
+be used, time allowing. 
+
+\subsubsection{Analysis}
+We will use the time-series analysis and dimensionality reduction features
+within MATLAB (\cite{MATLAB:2014}) to do economic modeling and a k-means clustering of our data. As
+our analysis is exploratory, initial modelling efforts will likely lead us to
+alternative analysis approaches, as will further ideas gained from this class.
+Visualizations of graph information may be handled in Python using the
+iGraph (\cite{Csardi2006}) and Scikitlearn (\cite{scikit-learn}) pacakges.
+
+
+\section{Conclusion}
+While other attempts have been made to predict market flow based on Twitter
+data, most have focused on a single equity index and have been limited to
+binary or categorical representations of mood. Our attempt is more broad in
+nature and can yield interesting, if any, information on relationships between
+people’s words and the market. 
+
+
+\section{References}
+\printbibliography
+
+\end{document}
