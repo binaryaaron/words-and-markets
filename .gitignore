@@ -102,3 +102,4 @@ target/
 *.out
 *.swp
 *.synctex.gz
+*.json
