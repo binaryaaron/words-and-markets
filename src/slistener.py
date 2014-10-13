@@ -12,7 +12,6 @@ class SListener(StreamListener):
         self.delout  = open('../data/delete.txt', 'a')
 
     def on_data(self, data):
-
         if  'in_reply_to_status' in data:
             self.on_status(data)
         elif 'delete' in data:
@@ -27,30 +26,32 @@ class SListener(StreamListener):
             print warning['message']
             return false
 
-    def on_status(self, status):
-        self.output.write(status + "\n")
-
-        self.counter += 1
-
-        if self.counter >= 20000:
-            self.output.close()
-            self.output = open('../data/' + self.fprefix + '.' 
-                               + time.strftime('%Y%m%d-%H%M%S') + '.json', 'w')
-            self.counter = 0
-
-        return
+	def on_status(self, status):
+		print 'got a tweet'
+		if status.lang == 'en':
+			print 'writing to file'
+			self.output.write(status)
+			self.counter += 1
+			if self.counter >= 20000:
+				self.output.close()
+				self.output = open('../data/' + self.fprefix + '.' 
+						+ time.strftime('%Y%m%d-%H%M%S') + '.json', 'w')
+				self.counter = 0
+		return
 
     def on_delete(self, status_id, user_id):
         self.delout.write( str(status_id) + "\n")
         return
 
-    def on_limit(self, track):
-        sys.stderr.write(track + "\n")
-        return
+	def on_limit(self, track):
+		print("Got an error with: " + str(status_code))
+		sys.stderr.write(track)
+		time.sleep(5)
+		return 
 
     def on_error(self, status_code):
         sys.stderr.write('Error: ' + str(status_code) + "\n")
-        return False
+        return #continue listening
 
     def on_timeout(self):
         sys.stderr.write("Timeout, sleeping for 60 seconds...\n")

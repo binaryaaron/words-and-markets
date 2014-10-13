@@ -2,16 +2,6 @@ from tweepy import StreamListener
 import sys, tweepy, time
 import json, time, sys
 import twitterDevKeys
-access_token= "165837734-B4v6m0pIvXsXncbdofsxHUP9vjRAdiTR9EMrQRbQ"
-access_token_secret = "mTPYXBdSNuvSXdAZwT1Q8UP1aUtTZyzGD3b86UaRv4LYt"
-consumer_key = "STtyAAdlg6XPC5LTOkGiZSQu0"
-consumer_secret = "bB8nCS2h8WWCq7jVXTqrXOBJEci3FDS0vC68RYNQEhpglQ5Gw3"
-
-access_token2= "165837734-eRt5czqtEfmKwchItkO0Mt9WVOa5kQQndOaLGPCl"
-access_token_secret2 = "kMSfPqTJG5qOoQqw8BJYF6fe9e2Zcbrwbi3IEURExgkd6"
-consumer_key2 = "4b2nMeO5i1AjTuriHhZSRXTzb"
-consumer_secret2 = "uZZwhLHs0JUbim7GymmteyFBrC4UQz78QWGVRHs3j6MfroyyCT"
-
 
 class StdOutListener(StreamListener):
     def __init__(self):
