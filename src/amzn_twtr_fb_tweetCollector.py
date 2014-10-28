@@ -3,43 +3,44 @@ import sys, tweepy, time
 import json, time, sys
 import twitterDevKeys
 keys_to_delete = [
-    "following",
-    "profile_background_color",
-    "profile_background_image_url", 
-    "profile_background_image_url_https",
-    "profile_background_tile", 
-    "profile_banner_url", 
-    "profile_image_url",
-    "profile_image_url_https", 
-    "profile_link_color",
-    "profile_use_background_image", 
-    "profile_sidebar_border_color",
-    "profile_sidebar_fill_color",
-    "profile_background_tile",
-    "profile_image_url",
-    "follow_request_sent",
-    "profile_link_color",
-    "favourites_count",
-    "url",
-    "contributors_enabled",
-    "utc_offset",
-    "id",
-    "listed_count",
-    "protected",
-    "profile_text_color",
-    "geo_enabled",
-    "notifications",
-    "description",
-    "statuses_count",
-    "following",
-    "show_all_inline_media",
-    "default_profile_image",
-    "default_profile"
-]
+        "following",
+        "profile_background_color",
+        "profile_background_image_url", 
+        "profile_background_image_url_https",
+        "profile_background_tile", 
+        "profile_banner_url", 
+        "profile_image_url",
+        "profile_image_url_https", 
+        "profile_link_color",
+        "profile_use_background_image", 
+        "profile_sidebar_border_color",
+        "profile_sidebar_fill_color",
+        "profile_background_tile",
+        "profile_image_url",
+        "follow_request_sent",
+        "profile_link_color",
+        "favourites_count",
+        "url",
+        "contributors_enabled",
+        "utc_offset",
+        "id",
+        "listed_count",
+        "protected",
+        "profile_text_color",
+        "geo_enabled",
+        "notifications",
+        "description",
+        "statuses_count",
+        "following",
+        "show_all_inline_media",
+        "default_profile_image",
+        "default_profile"
+        ]
 
 class StdOutListener(StreamListener):
     def __init__(self):
         self.counter = 0
+        self.tweetCount = 0
         self.engCounter = 0
         self.fprefix = 'twtrFbAmznTweets'
         self.output  = open('../data/' + self.fprefix + '.' 
@@ -57,7 +58,7 @@ class StdOutListener(StreamListener):
             #print "attempt to se if lang is an issue"
             if decoded['lang'] != 'en' or decoded['lang']== None:
                 self.engCounter += 1
-	#	print "not english"
+        #	print "not english"
                 return True
         except KeyError:
             print 'null lang field'
@@ -82,7 +83,7 @@ class StdOutListener(StreamListener):
                     del decoded['retweeted_status']['user'][thing]
                     empty_keys = [k for k,v in retweeted_status.iteritems() if not v]
                     for k in empty_keys:
-                        del retweeted_status[k]
+                        del decoded[k]
 
             except KeyError:
                 sys.exc_clear()
@@ -100,23 +101,25 @@ class StdOutListener(StreamListener):
         if self.tweetCount % 1000 == 0:
             s = 'Total tweets collected so far: ' + str(self.tweetCount)
             print(s)
+            print("this is the current tweet")
+            print(decoded['user']['screen_name'], decoded['text'].encode('ascii', 'ignore'))
 
         self.tweetCount += 1
         if self.counter >= 20000:
             self.output.close()
             self.output = open('../data/' + self.fprefix + '.' 
-                            + time.strftime('%Y%m%d-%H%M%S') + '.json', 'w')
+                    + time.strftime('%Y%m%d-%H%M%S') + '.json', 'w')
             self.counter = 0
         return 
 
 
     def on_error(self, status_code):
-            print('Got an error with status code: ' + str(status_code))
-            return True # To continue listening
+        print('Got an error with status code: ' + str(status_code))
+        return True # To continue listening
 
     def on_timeout(self):
-            print('Timeout...')
-            return True # To continue listening
+        print('Timeout...')
+        return True # To continue listening
 
 if __name__ == '__main__':
     listener = StdOutListener()

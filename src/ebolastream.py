@@ -74,18 +74,19 @@ class StdOutListener(StreamListener):
         except KeyError:
             retweeted_status = False
 
-
         for thing in keys_to_delete:
             try:
                 #print('deleting ' + thing ) 
                 del decoded['user'][thing]
                 if retweeted_status:
                     del decoded['retweeted_status']['user'][thing]
-                    empty_keys = [k for k,v in retweeted_status.iteritems() if not v]
-                    for k in empty_keys:
-                        del retweeted_status[k]
-
+                    del decoded['retweeted_status']
+                    retweeted_status = False
+                    #empty_keys = [k for k,v in retweeted_status.iteritems() if not v]
+                    #for k in empty_keys:
+                            #del decoded['retweeted_status'][k]
             except KeyError:
+                print('key error on deleting keys')
                 sys.exc_clear()
 
         #print('printing the refined tweet \'s user info \n')
@@ -93,6 +94,9 @@ class StdOutListener(StreamListener):
 
         #self.output.write(json.dumps(decoded))
         #self.output.write(json.dumps(decoded) + '\n')
+        #decoded['user']['screen_name'] = decoded['user']['screen_name'].lower()
+        #print(decoded['user']['screen_name'], decoded['text'])
+        #print(decoded['user']['screen_name'], decoded['text'])
         json.dump(decoded, self.output)
         self.output.write('\n')
         self.counter += 1
@@ -100,6 +104,8 @@ class StdOutListener(StreamListener):
         if self.tweetCount % 1000 == 0:
             s = 'Total tweets collected so far: ' + str(self.tweetCount)
             print(s)
+            print("this is the current tweet")
+            print(decoded['user']['screen_name'], decoded['text'].encode('ascii', 'ignore'))
         self.tweetCount += 1
 
         if self.counter >= 20000:
