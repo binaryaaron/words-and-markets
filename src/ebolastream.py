@@ -80,13 +80,13 @@ class StdOutListener(StreamListener):
                 del decoded['user'][thing]
                 if retweeted_status:
                     del decoded['retweeted_status']['user'][thing]
-                    del decoded['retweeted_status']
-                    retweeted_status = False
+                    #del decoded['retweeted_status']
+                    #retweeted_status = False
                     #empty_keys = [k for k,v in retweeted_status.iteritems() if not v]
                     #for k in empty_keys:
                             #del decoded['retweeted_status'][k]
             except KeyError:
-                print('key error on deleting keys')
+                #print('key error on deleting keys')
                 sys.exc_clear()
 
         #print('printing the refined tweet \'s user info \n')
@@ -135,4 +135,4 @@ if __name__ == '__main__':
     auth.set_access_token(access_token, access_token_secret)
 
     stream = tweepy.Stream(auth, listener)
-    stream.filter(track=['ebola', '#ebola'])
+    stream.filter(track=['ebola', '#ebola','antares','#antares'])

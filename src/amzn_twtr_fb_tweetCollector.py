@@ -99,7 +99,7 @@ class StdOutListener(StreamListener):
         self.counter += 1
 
         if self.tweetCount % 1000 == 0:
-            s = 'Total tweets collected so far: ' + str(self.tweetCount)
+            s = 'Total tweets collected this session: ' + str(self.tweetCount)
             print(s)
             print("this is the current tweet")
             print(decoded['user']['screen_name'], decoded['text'].encode('ascii', 'ignore'))
@@ -135,6 +135,8 @@ if __name__ == '__main__':
     while True:
         try:
             stream.filter(track=['twrt', 'amazon', 'amzn', 'prime', 'aws','fb', 'facebook'])
+            #stream.sample()
         except:
             print 'caught exception'
+
 

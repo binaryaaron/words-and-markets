@@ -133,10 +133,11 @@ if __name__ == '__main__':
 	auth.set_access_token(access_token, access_token_secret)
 
 	stream = tweepy.Stream(auth, listener)
-	try:
-		stream.filter(track=['ebola', 'aapl', 'apple', 'mac', 'tim cook', 'goog',
-			'google', 'gmail', 'youtube', 'microsoft', 'msft',
-			'nadella'])
-	except :
-		print 'caught exception'
+        while True:
+            try:
+                stream.filter(track=['ebola', 'aapl', 'apple', 'mac', 'tim cook', 'goog',
+                        'google', 'gmail', 'youtube', 'microsoft', 'msft',
+                        'nadella'])
+            except:
+                print 'caught exception'
 
