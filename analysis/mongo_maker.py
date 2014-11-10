@@ -1,10 +1,12 @@
 import sys, glob, errno, pymongo, datetime, ujson
 from datetime import timedelta
 
-
-
-
 def convert_date(tweet):
+	"""Converts the date in the tweet from twitter's api format to a python
+	datetime object for easy use 
+	Args:
+		tweet (json): a tweet 
+	"""
     for (key, value) in tweet.items():
         try:
             tweet[key] = datetime.datetime.strptime(value,'%a %b %d %H:%M:%S +0000 %Y')
@@ -13,6 +15,10 @@ def convert_date(tweet):
     return tweet
 
 def make_filelist(path):
+	"""Makes a list of files through which the program may iterate
+	Args:
+		path (str): a string indicating the path in which the tweets are stored
+	"""
 	#initial array for the read-in tweets
 	files = glob.glob(path)   
 	files.sort()
@@ -21,8 +27,12 @@ def make_filelist(path):
 
 
 def insert_tweets(filename):
+	"""Inserts the tweets into a mongo db in EST 
+	Args:
+		filename (str): the filename that contains tweet json objects
+	"""
 	client = pymongo.MongoClient()
-	db = client["tweet_test"]
+	db = client["tweetdb"]
 	tweets = db.tweets
 	try:
 		for line in open(filename): # No need to specify 'r': this is the default.
@@ -36,11 +46,10 @@ def insert_tweets(filename):
 			raise # Propag
 
 if __name__ == '__main__':
-	path = ''
+	path = '/home/agonzales/git/mining-moods-markets/data/*.json'
 	files = make_filelist(path)
 	for filename in files:
 		print('attempting to insert the following file into the db')
 		print(filename)
 		insert_tweets(filename)
-
 
