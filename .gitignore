@@ -103,3 +103,10 @@ target/
 *.swp
 *.synctex.gz
 *.json
+../data/backup/
+../data/delete.txt
+../data/mongo/
+../proposal/cs591-projectProposal.pdf
+../proposal/proposal.run.xml
+../src/twitterDevKeys.py
+
