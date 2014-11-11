@@ -134,7 +134,7 @@ if __name__ == '__main__':
     block is reached.
     """
     final_end_time = datetime.datetime(2014,11,2,18)
-    start_time = datetime.datetime(2014,10,17,8)
+    start_time = datetime.datetime(2014,10,18,6)
     end_time = start_time + timedelta(hours = 1)
     if debug:
         print('debug!')
@@ -145,7 +145,12 @@ if __name__ == '__main__':
         print 'working on timeframe', start_time, end_time
         row = []
         hour_bin = makeTweetBin(start_time, end_time)
-        print('length of current bin = ', len(hour_bin))
+        print 'length of current bin = ', len(hour_bin)
+        if len(hour_bin) == 0:
+            print 'skipping empty hour'
+            start_time = start_time + timedelta(hours=1)
+            end_time = start_time + timedelta(hours=1)
+            continue
         num_tweets = len(hour_bin)
         words = filter_words(hour_bin)
         dicts = make_corpus(words)
