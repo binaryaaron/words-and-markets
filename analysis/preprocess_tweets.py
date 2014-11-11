@@ -10,17 +10,16 @@ number_topics = 80
 def makeTweetBin(startTime, stopTime):
     """ Cuts the tweets into bins based on times
     uses pymongo to connect to a db that has a bunch of tweets in it.
-
     Args:
-        startTime (datetime): the starting time for the bin in datetime format
-        stopTime (datetime): the stopping point for the bin in datetime format
-
+      startTime (datetime): the starting time for the bin in datetime format
+      stopTime (datetime): the stopping point for the bin in datetime format
     Returns:
-        a list of tweets that match the criteria startTime =< tweets =< stopTime
+      a list of tweets that match the criteria startTime =< tweets =< stopTime
     """
     print 'making the time-dependent bin of tweets'
     client = pymongo.MongoClient()
-    db = client["tweet_test"]
+    #db = client["tweet_test"]
+    db = client["tweetdb"]
     tweets = db.tweets
     bin = []
     bin = [ tweet for tweet in 
@@ -134,8 +133,8 @@ if __name__ == '__main__':
     """ Driver for the script that loops over the mongo db until a final time
     block is reached.
     """
-    final_end_time = datetime.datetime(2014,11,2,16)
-    start_time = datetime.datetime(2014,11,2,8)
+    final_end_time = datetime.datetime(2014,11,2,18)
+    start_time = datetime.datetime(2014,10,17,8)
     end_time = start_time + timedelta(hours = 1)
     if debug:
         print('debug!')
