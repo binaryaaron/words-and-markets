@@ -133,8 +133,8 @@ if __name__ == '__main__':
     """ Driver for the script that loops over the mongo db until a final time
     block is reached.
     """
-    final_end_time = datetime.datetime(2014,11,2,18)
-    start_time = datetime.datetime(2014,10,23,21)
+    final_end_time = datetime.datetime(2014,11,7,18)
+    start_time =datetime.datetime(2014,11,2,18) 
     end_time = start_time + timedelta(hours = 1)
     if debug:
         print('debug!')
