@@ -1,6 +1,9 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+*.png
+.ipynb_checkpoints/
+*.pdf
 
 # C extensions
 *.so
