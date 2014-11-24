@@ -104,7 +104,6 @@ target/
 *.mtc1
 *.out
 *.swp
-*.synctex.gz
 *.json
 ../data/backup/
 ../data/delete.txt
@@ -112,4 +111,5 @@ target/
 ../proposal/cs591-projectProposal.pdf
 ../proposal/proposal.run.xml
 ../src/twitterDevKeys.py
+*.synctex
 
