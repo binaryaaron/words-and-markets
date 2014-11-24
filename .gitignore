@@ -112,4 +112,4 @@ target/
 ../proposal/proposal.run.xml
 ../src/twitterDevKeys.py
 *.synctex
-
+*.nav
