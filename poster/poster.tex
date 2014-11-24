@@ -68,7 +68,7 @@
 % Name and authors of poster/paper/research
 %-----------------------------------------------------------
 
-\title{Can Twitter Help Predict the Stock Market?}
+\title{Can Twitter User's Moods Predict the Stock Market?}
 \author{Aaron Gonzales and Adam Delora}
 \institute{Department of Computer Science, University of New Mexico} 
 
@@ -122,7 +122,7 @@
           \begin{center}
             \includegraphics[width=10in]{code.png} \\
             \caption{tracked keywords}
-            \label{fig:corrSubsys}
+            \label{fig:keywords}
           \end{center}
         \end{figure}}
       \end{block}
@@ -133,47 +133,60 @@
       \begin{columns}[t,totalwidth=\twocolwid] % split up that two-column-wide column
         \begin{column}{\onecolwid}\vspace{-.69in}
           \begin{block}{Summary Statistics}
-            \rmfamily{A correctable subsystem $\cl{B}$ is said to be a \emph{unitarily-correctable code} (UCC) for $\cl{E}$ if the recovery operation is simply a conjugation-by-unitary channel $\cl{U}(\cdot) := U(\cdot)U^*$.
-            \vspace{0.1in}
+            \rmfamily{
+              blah blah blah
+              \vspace{0.1in}
             \begin{itemize}\justifying % the \justifying command forces the items in the list to have full justification (they don't by default)
-              \item Since finding correctable subsystems in full generality is an extremely difficult problem, restricting our attention to unitarily-correctable codes seems potentially wise.
-              \item These codes are of physical interest; they are codes in which the two-step process of recovery only involves the conjugation-by-unitary step (and not the projective measurement step).
-              \item It has been shown \cite{KS06} that if a quantum channel $\cl{E}$ is unital, then we can unambiguously define \emph{the unitarily-correctable code algebra} of $\cl{E}$, denoted $UCC(\cl{E})$, to be the albebra composed of the direct sum of all of the unitarily-correctable codes.
-              \item In terms of Figure~1, unitarily-correctable codes are those for which $p_1 = 1$ and $p_2 = p_3 = 0$ (i.e., there is just one block on the right).
+              \item Total tweets collected: 86 million
+              \item Total number of days: 25
+              \item Total hour bins: 360
             \end{itemize}}
+
+          \begin{figure}
+          \begin{center}
+            \includegraphics[width=10in]{figures/autocorr_plot.pdf} \\
+            \caption{Autocorrelation Plot of LSI }
+            \label{fig:autocorrplot}
+          \end{center}
+        \end{figure}
           \end{block}
         \end{column}
         \begin{column}{\onecolwid}\vspace{-.69in}
-          \begin{block}{The Multiplicative Domain}
-            \rmfamily{The \emph{multiplicative domain} of $\cl{E}$ \cite{Cho74}, denoted $MD(\cl{E})$, is defined to be the following set:
-            \begin{align*}
-              \big\{ a \in \cl{L}(\cl{H}) : & \, \cl{E}(a)\cl{E}(b) = \cl{E}(ab)\text{ and } \\
-              & \, \cl{E}(b)\cl{E}(a) = \cl{E}(ba) \ \forall \, b \in \cl{L}(\cl{H}) \big\}.
-            \end{align*}
+          \begin{block}{Examining LSI}
+            Using LSI would provide something like the following topic:
+            \begin{lstlisting}
+              2014-10-30 05:00:00    [u'new', u'facebook', u'posted', u'photo', u'i]
+              2014-10-30 06:00:00    [u'tim', u'apple', u'ceo', u'cook', u'proud', 
+              2014-10-30 07:00:00    [u'tim', u'apple', u'cook', u'ceo', u'is', u'p
+              2014-10-30 08:00:00    [u'tim', u'apple', u'cook', u'ceo', u'is', u'p
+              2014-10-30 09:00:00    [u'is', u'tim', u'apple', u'cook', u'ceo', u'g
+              2014-10-30 10:00:00    [u'is', u'tim', u'cook', u'apple', u'ceo', u'n
+              2014-10-30 11:00:00    [u'is', u'new', u'facebook', u'apple', u'tim',
+              2014-10-30 12:00:00    [u'is', u'new', u'apple', u'facebook', u'poste
+              2014-10-30 13:00:00    [u'is', u'new', u'facebook', u'ios', u'apple',
+              2014-10-30 14:00:00    [u'is', u'@youtube', u'new', u'video', u'faceb
+              2014-10-30 15:00:00    [u'@youtube', u'video', u'liked', u'is', u'new
+              2014-10-30 16:00:00    [u'@youtube', u'video', u'liked', u'is', u'new.
 
-            \begin{itemize}
-              \item $\cl{E}$ behaves particularly nicely when restricted to $MD(\cl{E})$ (as a $*$-homomorphishm, in fact).
-              \item $MD(\cl{E})$ was first studied by operator theorists over thirty years ago.
-              \item $MD(\cl{E})$ is an algebra, and hence \cite{Dav96} is unitarily equivalent to a direct sum of tensor blocks:
-              \begin{equation}\label{opalgform}
-                MD(\cl{E}) \cong \oplus_k \big(I_{\mathcal{A}_k} \otimes \mathcal{L}(\mathcal{B}_k)\big) \, \oplus \, 0_\mathcal{K}.
-              \end{equation}
-            \end{itemize}
+            \end{lstlisting}
             \vspace{0.25in}
             \begin{figure}
               \begin{center}
-                \includegraphics[width=10in]{MD.png}
-                \caption{The action of a quantum channel on its multiplicative domain.}
-                \label{fig:multDom}
+                \includegraphics[width=10in]{figures/lsi_rolling_means.png}
+                \caption{Rolling means of LSI score per hour over our sample.}
+                \label{fig:rollingmeans}
               \end{center}
-            \end{figure}}
+            \end{figure}
           \end{block}
         \end{column}
       \end{columns}
       \vskip2.5ex
       \begin{alertblock}{The Great Connection}  % an ACTUAL two-column-wide column
-        \rmfamily{By looking at Figures 1 and 2, we expect that there might be some connection between correctable subsystems for a channel $\cl{E}$ and its multiplicative domain. Indeed, one of our main results is that the two situations coincide when $\cl{E}$ is unital and the subsystem is unitarily-correctable.}
-      \end{alertblock}
+        \rmfamily{By looking at Figures 1 and 2, we expect that there might be
+          some connection between correctable subsystems for a channel $\cl{E}$
+          and its multiplicative domain. Indeed, one of our main results is
+          that the two situations coincide when $\cl{E}$ is unital and the
+        subsystem is unitarily-correctable.} \end{alertblock}
       \begin{columns}[t,totalwidth=\twocolwid]
         \begin{column}{\onecolwid}
         \begin{block}{Main Result}
