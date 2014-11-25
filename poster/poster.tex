@@ -39,6 +39,8 @@
 \setlength{\topmargin}{-0.5in}
 \usetheme{confposter}
 \usepackage{exscale}
+\usepackage{listings}
+\usepackage{hyperref}
 
 %-----------------------------------------------------------
 % The next part fixes a problem with figure numbering. Thanks Nishan!
@@ -103,28 +105,40 @@
             ``mood''.
         \end{itemize}}
       \end{block}
-      \vskip2ex
+      %\vskip2ex
       \begin{block}{Methods}
         \rmfamily{
           We collected tweets using the public Twitter Streaming RESTful API
           over 2014-10-15 \textemdash 2014-11-09 by tracking words that related
-          to various tech stocks indexed by NASDAQ. NASDAQ market data was also
-          stored over the same period. Tweets were preprocessed to remove
+          to various tech stocks indexed by NASDAQ.           \begin{itemize}
+            \item \small{Maine nurse defies Ebola quarantine order by taking bike ride.
+              http://t.co/eERINkm3AQ via @indystarJ}
+            \item \small{Tim Cook: Apple CEO Says 'Being Gay Is One Of God's
+                Greatest Gifts' Earlier today, the chief executive of
+                Apple,\ldots \url{http://t.co/zIXb2HbDmd}}
+            \item \small{ Meet the Swedish twin sisters who want to be
+                'identical artificial dolls' \url{http://t.co/77eA3esaQa}}
+            \item \small{Last Christmas I got a black iPhone it was the
+                worst Christmas present ever, I wanted a white one. I mean I'm
+                not\ldots \url{http://t.co/jhP9ODs3QK}}
+            \end{itemize}
+            \begin{itemize}\label{keywords}
+            \item \small{ 'ebola', 'aapl', 'apple', 'mac', 'tim cook', 'goog',
+            'google', 'gmail', 'youtube', 'microsoft', 'msft',
+            'nadella', 'twrt', 'amazon', 'amzn', 'prime', 'aws','fb',
+          'facebook'}
+          \end{itemize}
+          NASDAQ market data was also
+          collected over the same period. Tweets were preprocessed to remove
           common stopwords and latent semantic indexing was performed on
           one-hour bag-of-words bins of tweets, giving a total of xxx hours
           included in analysis. Each hour bin's LSI topics were scored using
           the AFINN database, resulting in a single number indicating semantic
           valence for each hour. This semantic data was combined with the stock
-          data for visualization and analysis. A VAR model was performed to
-          asses the predictive power of the semantic data against the stock
-          data.
-          \begin{figure}
-          \begin{center}
-            \includegraphics[width=10in]{code.png} \\
-            \caption{tracked keywords}
-            \label{fig:keywords}
-          \end{center}
-        \end{figure}}
+          data for visualization and analysis. A vector autoregressive (VAR)
+          model was performed to asses the predictive power of the semantic
+          data against the stock data.
+          }
       \end{block}
     \end{column}
 
@@ -140,12 +154,25 @@
               \item Total tweets collected: 86 million
               \item Total number of days: 25
               \item Total hour bins: 360
-            \end{itemize}}
-
+            \end{itemize}
+            }
+            Example of a LSI topic:
+            \begin{lstlisting}^^J
+              Put your code here.^^J
+            \end{lstlisting}
+            We generated 80 topics per hour using Gensim.
           \begin{figure}
           \begin{center}
-            \includegraphics[width=10in]{figures/autocorr_plot.pdf} \\
-            \caption{Autocorrelation Plot of LSI }
+            '0.748*+ 0.199*``video'' + 0.190*``my'' + -0.183*``i''
+            + -0.172*``yo'' + 0.153*``me'' + 0.147*``music'' +
+            -0.140*``apple'' + 0.114*``give'' + 0.113*``be''',
+             '0.416*``scientists'' + 0.219*``are'' + 0.217*``about'' +
+             0.216*``do'' + 0.214*``don\'t'' + 0.211*``over'' + 0.209*``say'' +
+             0.209*``climate'' + 0.209*``it!'' + 0.208*``panic''',
+              '0.586*``on'' + -0.315*``is'' + -0.217*``get'' + 0.165*``from''
+              + -0.140*``ebola'' + -0.129*``i'' + -0.126*``google'' +
+            -0.122*``it'' + -0.117*``really'' + 0.114*``liked'''
+            \caption{Two exaple LSI topics}
             \label{fig:autocorrplot}
           \end{center}
         \end{figure}
@@ -154,21 +181,6 @@
         \begin{column}{\onecolwid}\vspace{-.69in}
           \begin{block}{Examining LSI}
             Using LSI would provide something like the following topic:
-            \begin{lstlisting}
-              2014-10-30 05:00:00    [u'new', u'facebook', u'posted', u'photo', u'i]
-              2014-10-30 06:00:00    [u'tim', u'apple', u'ceo', u'cook', u'proud', 
-              2014-10-30 07:00:00    [u'tim', u'apple', u'cook', u'ceo', u'is', u'p
-              2014-10-30 08:00:00    [u'tim', u'apple', u'cook', u'ceo', u'is', u'p
-              2014-10-30 09:00:00    [u'is', u'tim', u'apple', u'cook', u'ceo', u'g
-              2014-10-30 10:00:00    [u'is', u'tim', u'cook', u'apple', u'ceo', u'n
-              2014-10-30 11:00:00    [u'is', u'new', u'facebook', u'apple', u'tim',
-              2014-10-30 12:00:00    [u'is', u'new', u'apple', u'facebook', u'poste
-              2014-10-30 13:00:00    [u'is', u'new', u'facebook', u'ios', u'apple',
-              2014-10-30 14:00:00    [u'is', u'@youtube', u'new', u'video', u'faceb
-              2014-10-30 15:00:00    [u'@youtube', u'video', u'liked', u'is', u'new
-              2014-10-30 16:00:00    [u'@youtube', u'video', u'liked', u'is', u'new.
-
-            \end{lstlisting}
             \vspace{0.25in}
             \begin{figure}
               \begin{center}
