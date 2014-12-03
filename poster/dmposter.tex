@@ -53,8 +53,8 @@
 
  % -- PREDEFINED THEMES ---------------------- %
  % Choose LAYOUT:  Default, Basic, Rays, Simple, Envelope, Wave, Board, Autumn, Desert,
-\usetheme{Simple}
-%\usecolorstyle[colorPalette=BrownBlueOrange]{Germany}
+\usetheme{Basic}
+\usecolorstyle[colorPalette=BrownBlueOrange]{Germany}
 
 
  \begin{document}
@@ -124,7 +124,7 @@
      a single number indicating semantic valence for each hour.  The LSI score
      was smoothed using rolling means and assessed for periodicity. Semantic
      data was combined with the stock data and standardized for visualization
-     (see Figure \ref{fig:means}
+     (see Figure \ref{fig:means})
      and analysis. A model was created using vector autoregression (VAR) to
      assess 	the predictive power of the semantic data against the stock data.
      All work was done using Python: Tweets were harvested using
@@ -210,11 +210,13 @@
    %Google $(f = 8.584039, p = 0.003)$, and tweets per hour $(f = 3.51, p =
    %0.06)$. 
    Impulse response analysis and a Granger's causality test were performed on the
-   fitted VAR model. 
-   A causal effect of LSI score on Amazon $(f = 9.68, p = 0.02)$,
-   Google $(f = 8.584039, p = 0.003)$, and tweets per hour $(f = 3.51, p =
-   0.06)$ was found and impulse responses are presented in Figure
-   \ref{fig:impulseresponse}. 
+   fitted VAR model. A causal effect of LSI score was found at the 90\% level for the following
+   variables in the model; impulse responses are plotted in Figure \ref{fig:impulseresponse}. 
+   \begin{itemize}
+   \item Amazon stock price $(f = 9.68, p = 0.02)$,
+   \item Google stock price $(f = 8.584039, p = 0.003)$, 
+   \item tweets per hour $(f = 3.51, p = 0.06)$ 
+   \end{itemize}
 
    It is difficult to infer exactly why the semantic scores predicted some of
    these stocks, though there does seem to be a heavy overrepresentation of
@@ -232,7 +234,7 @@
    \block{References and Acknowledgements}{
      We thank Dr. Abdullah Mueen for valuable discussions regarding
      our analyses. 
-     \renewcommand*{\bibfont}{\footnotesize}
+     \renewcommand*{\bibfont}{\tiny}
      \printbibliography
    }
 
