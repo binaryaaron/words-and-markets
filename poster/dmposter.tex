@@ -20,14 +20,6 @@
 %% and version 2.0 or later is part of all distributions of
 %% LaTeX version 2013/12/01 or later.
 %% 
-
-
-
-
-
-
-
-
  \documentclass[17pt, a1paper, portrait, margin=0mm, innermargin=1mm,
      blockverticalspace=3mm, colspace=5mm, subcolspace=5mm]{tikzposter} %Default values for poster format options.
 
@@ -36,8 +28,14 @@
 \usepackage{listings}
 \usepackage[hidelinks]{hyperref}
 \usepackage{wrapfig}
-\usepackage[backend=biber]{biblatex}
+\usepackage[backend=biber, sorting=none]{biblatex}
+\usepackage{framed}
+\usetikzlibrary{backgrounds}
+\pgfmathsetseed{1} % To have predictable results
+% Define a background layer, in which the parchment shape is drawn
+
 \addbibresource[datatype=bibtex]{dmposter.bib}
+\geometry{paperwidth=24in, paperheight=36in}
 
 
  % Commands
@@ -70,10 +68,10 @@
      \begin{itemize}
        \item Twitter is a microblogging service with 284 million monthly
          active users who post 500 million updates (``tweets'') per day.
-       \item Latent Semantic Indexing is a technique used to summarize
-         words (documents) into representative ideas similar to principle
-         component analysis.
-       \item The AFINN semantic indexing database (\cite{ANEW}) assigns coded valence
+     \item Latent Semantic Indexing\cite{lsipaper} is a
+       technique used to summarize words (documents) into representative ideas
+       similar to principle component analysis.
+       \item The AFINN semantic indexing database \cite{ANEW} assigns coded valence
          values to common words to allow quantification of a set of word's
          ``mood''.
      \end{itemize}
@@ -82,7 +80,8 @@
    \block{Methods}{
      We collected tweets using the public Twitter Streaming RESTful API
      over 2014-10-17 \textemdash 2014-11-09 by tracking words that related
-     to various tech stocks indexed by NASDAQ.           
+     to various tech stocks indexed by NASDAQ. Tweets were stored in a Mongo
+     noSQL database.
      \begin{tikzfigure}[Several examples of de-identified tweets from our
        dataset] 
        \label{fig:tweets}
@@ -100,34 +99,44 @@
        \end{itemize}
          \tiny{\textcolor{white}{blah}}
      \end{tikzfigure}
-          
     %\begin{wrapfigure}[6]{l}{0.33\linewidth}
      \begin{tikzfigure}[Kewords tracked] \label{fig:keywords}
-       \begin{tikzpicture}
+       \begin{tikzpicture}[background rectangle/.style={fill=black},show
+         background rectangle]
          \node[anchor=north west] (note2) at (0,0)
          { \small{ebola, aapl, apple, mac, tim cook, goog,
            youtube, microsoft, msft }};
          \node[anchor=north west] (note2) at (0,0.5)
          { \small{nadella, twrt, amazon, amzn, prime, aws, fb,
          facebook, google, gmail,}};
+
        \end{tikzpicture}
      \end{tikzfigure}
     %\end{wrapfigure}
      NASDAQ market data was collected over a slightly longer period, 2014-08-30
-     - 2014-11-09. Tweets were preprocessed to remove common stopwords. Latent semantic indexing
-     was performed using Gensim \cite{rehurek_lrec}  on one-hour bag-of-words bins of
-     tweets, giving a total of xxx hours included in analysis. Each hour's
-     LSI topics were scored using the AFINN database, resulting in a single
-     number indicating semantic valence for each hour. The LSI score was
-     smoothed using rolling means and assessed
-     for periodicity.  Semantic data was combined with the stock data and
-     standardized for
-     visualization and analysis. A model was created using vector autoregression (VAR) to assess 	the predictive power of the semantic data against the
-     stock data.
+     - 2014-11-09. Aaple (aapl), Amazon (amzn), Facebook (fb), Google (goog),
+     Microsoft (msft), and Twitter (twtr) stocks were analyzed using their
+     hourly closing price. Tweet text was preprocessed to remove common
+     stopwords and punctuation and each hour bin was represented as a
+     bag-of-words vector. Latent semantic indexing was performed on the
+     one-hour bins of tweets, giving a total of 218 hours included in analysis.
+     Each hour's LSI topics were scored using the AFINN database, resulting in
+     a single number indicating semantic valence for each hour.  The LSI score
+     was smoothed using rolling means and assessed for periodicity. Semantic
+     data was combined with the stock data and standardized for visualization
+     (see Figure \ref{fig:means}
+     and analysis. A model was created using vector autoregression (VAR) to
+     assess 	the predictive power of the semantic data against the stock data.
+     All work was done using Python: Tweets were harvested using
+     Tweepy\cite{tweepy}, text preprocessing was performed using Gensim
+     \cite{rehurek_lrec}, visualizations were made with
+     Matplotlib\cite{Hunter:2007}, and statistical analysis was performed with
+     Statsmodels \cite{statsmodels2010}. 
 
-     Within an hour LSI would provide a set of topics like the following topic from 14:00-15:00
-     on 2014-10-16:
-     \begin{tikzfigure}[Two LSI topics]
+     Within an hour bin, LSI would provide a set of topics as noted in Figure
+     \ref{tab:topics}. Representative Word clouds were generated for each hour
+     as shown in Figure \ref{fig:wordcloud}.
+     \begin{tikzfigure}[Two LSI topics from 2014-10-16, 14:00 - 15:00]
        \label{tab:topics}
        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
          \hline
@@ -146,80 +155,90 @@
      \end{tikzfigure}
    } 
 %%%%%%%%%%%%%%%%new block%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-         \block{Summary Statistics}{
-           %\begin{wrapfigure}{l}{0.40\linewidth}
-             %\begin{tikzfigure}[Rolling Means of LSI score] \label{fig:summary}
-             %%\includegraphics[width=4in]{figures/lsi_rolling_means.png}
-               %\includegraphics[width=0.99\linewidth]{figures/lsi_rolling_means.png}
-             %\end{tikzfigure}
-           %\end{wrapfigure}
-           \begin{itemize}
-             \item \small{Total tweets collected: 84 million}
-             \item \small{Total hours analyzed: 218}
-             \item \small{Number of tweets per hour: 205,200; std 71,700}
-             \item \small{Mean semantic score:  4.78; std 1.39}
-           \end{itemize}
-           blah
-           %\begin{wrapfigure}{l}{0.8\linewidth}
-           \begin{tikzfigure}[Word clouds generated from topics on 2014-10-30,
-             11:00-12:00 and 12:00 - 13:00]
-             \label{fig:wordcloud}
-             {\includegraphics[width=0.35\linewidth]{../analysis/img170.png}}
-             {\includegraphics[width=0.35\linewidth]{../analysis/img173.png}}
-             %{\includegraphics[width=0.46\linewidth]{figures/lsi_rolling_means.png}}
-           \end{tikzfigure}
-         %\end{wrapfigure}
-         }
+     \block{Summary, Descriptive Statistics}{
+       \begin{itemize}
+         \item \small{Total tweets collected: 84 million}
+         \item \small{Total hours analyzed: 218}
+         \item \small{Number of tweets per hour: 205,200; std 71,700}
+         \item \small{Mean semantic score:  4.78; std 1.39}
+       \end{itemize}
+       %\begin{wrapfigure}{l}{0.8\linewidth}
+       \begin{tikzfigure}[Word clouds generated from topics on 2014-10-30,
+         11:00-12:00 and 12:00 - 13:00. The LSI model was able to capture
+       information about Tim Cook (Apple's CEO) coming out as gay on that day.]
+         \label{fig:wordcloud}
+         {\includegraphics[width=0.49\linewidth]{../analysis/img170.png}}
+         {\includegraphics[width=0.49\linewidth]{../analysis/img173.png}}
+         %{\includegraphics[width=0.46\linewidth]{figures/lsi_rolling_means.png}}
+       \end{tikzfigure}
+     %\end{wrapfigure}
+     }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%       new col         %%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-         \column{.5}
+ \column{.5}
 %%%%%%%%%%%%%%%%new block%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-         \block{Stocks}{
-           \begin{tikzfigure}[Rolling means of z-scored LSI score and stock prices per hour]
-             \label{fig:means}
-             \includegraphics[width=8in]{figures/stock_plot_with_lsi}
-           \end{tikzfigure}
-         }
+   \block{Summary, Stocks and LSI score}{
+     \begin{tikzfigure}[Rolling means of standardized LSI score and closing stock prices per hour]
+       \label{fig:means}
+       \includegraphics[width=7.5in]{figures/stock_plot_with_lsi}
+     \end{tikzfigure}
+   }
+
 %%%%%%%%%%%%%%%%new block%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-   \block{Results}{
+   \block{Results and Conclusions}{
    %\begin{wrapfigure}{l}{0.8\linewidth}
     \begin{tikzfigure}[Impulse Response analysis of LSI score change]
      \label{fig:impulseresponse}
      \includegraphics[width=7in]{figures/impulse_responses}
    \end{tikzfigure}
    %\end{wrapfigure}
-    VAR models are used to model multivariate time
-    series. They describe a set of $k$ variables as a linear function of
+    VAR models describe a set of $k$ variables as a linear function of
     their previous values. A $p$-th order VAR model is denoted by
     $y_t = c + A_1 y_{t-1} + A_2 y_{t-2} + \cdots + A_p y_{t-p} + e_t$.
     VAR models are often used with a lag parameter that operates on the
     elements of a time series to produce the previous element. We determined
     the lag order by employing an information criteria-based order selection
-    which led us to use a lag of 1 hour in the model. Python/Statsmodels
-    \cite{statsmodels2010} were used for analysis.
+    which led us to use a lag of 1 hour in the model. 
 
-   Our VAR model indicated LSI score was a significant predictor of Amazon
-   $(t = -2.312, p = 0.023)$, Facebook $(t = -2.527, p = 0.013)$, and Twitter
-   $(t = 2.566, p = 0.012)$ and Granger's causality test concluded that there
-   was a causal effect of LSI score on Amazon $(f = 9.68, p = 0.02)$ and
-   Google $(f = 8.584039, p = 0.003)$.
+   %Our VAR model indicated LSI score was a significant predictor of Amazon
+   %$(t = -2.312, p = 0.023)$, Facebook $(t = -2.527, p = 0.013)$, and Twitter
+   %$(t = 2.566, p = 0.012)$ and Granger's causality test concluded that there
+   %%was a causal effect of LSI score on Amazon $(f = 9.68, p = 0.02)$,
+   %Google $(f = 8.584039, p = 0.003)$, and tweets per hour $(f = 3.51, p =
+   %0.06)$. 
+   Impulse response analysis and a Granger's causality test were performed on the
+   fitted VAR model. 
+   A causal effect of LSI score on Amazon $(f = 9.68, p = 0.02)$,
+   Google $(f = 8.584039, p = 0.003)$, and tweets per hour $(f = 3.51, p =
+   0.06)$ was found and impulse responses are presented in Figure
+   \ref{fig:impulseresponse}. 
+
+   It is difficult to infer exactly why the semantic scores predicted some of
+   these stocks, though there does seem to be a heavy overrepresentation of
+   tweets that follow a form of ``I liked a photo from Facebook'' or ``I liked
+   a video on Youtube'', which are automated tweets that some users have
+   enabled in their accounts. Volume of these tweets may be a proxy for
+   these service's usage rates, which could predict minor fluctuations in stock
+   prices. It is useful to note that the fluctuations in prices are minor,
+   1-2\% of total prices, but may not be so minor to investors. We will revisit
+   this dataset after collection of broader data is complete in several months
+   and will investigate other drawbacks of using the AFINN database and
+   more effictive filtering of the tweets.
    }
 
    \block{References and Acknowledgements}{
+     We thank Dr. Abdullah Mueen for valuable discussions regarding
+     our analyses. 
      \renewcommand*{\bibfont}{\footnotesize}
      \printbibliography
    }
 
  \end{columns}
 
-
 \end{document}
-
-
-
 
 \endinput
 %%
