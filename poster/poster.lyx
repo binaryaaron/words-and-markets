@@ -1,0 +1,2490 @@
+#LyX file created by tex2lyx 2.1
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass beamer
+\begin_preamble
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Multiplicative domain poster
+% Created by Nathaniel Johnston
+% August 2009
+% http://www.nathanieljohnston.com/2009/08/latex-poster-template/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[scale=1.24]{beamerposter}
+% allows us to import images
+
+%-----------------------------------------------------------
+% Custom commands that I use frequently
+%-----------------------------------------------------------
+
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\cl}[1]{\mathcal{#1}}
+\newcommand{\fA}{\mathfrak{A}}
+\newcommand{\fB}{\mathfrak{B}}
+\newcommand{\Tr}{{\rm Tr}}
+\newtheorem{thm}{}
+
+%-----------------------------------------------------------
+% Define the column width and poster size
+% To set effective sepwid, onecolwid and twocolwid values, first choose how many columns you want and how much separation you want between columns
+% The separation I chose is 0.024 and I want 4 columns
+% Then set onecolwid to be (1-(4+1)*0.024)/4 = 0.22
+% Set twocolwid to be 2*onecolwid + sepwid = 0.464
+%-----------------------------------------------------------
+
+\newlength{\sepwid}
+\newlength{\onecolwid}
+\newlength{\twocolwid}
+\setlength{\paperwidth}{48in}
+\setlength{\paperheight}{36in}
+\setlength{\sepwid}{0.024\paperwidth}
+\setlength{\onecolwid}{0.22\paperwidth}
+\setlength{\twocolwid}{0.464\paperwidth}
+\setlength{\topmargin}{-0.5in}
+\usetheme{confposter}
+\usepackage{exscale}
+
+
+%-----------------------------------------------------------
+% The next part fixes a problem with figure numbering. Thanks Nishan!
+% When including a figure in your poster, be sure that the commands are typed in the following order:
+% \begin{figure}
+% \includegraphics[...]{...}
+% \caption{...}
+% \end{figure}
+% That is, put the \caption after the \includegraphics
+%-----------------------------------------------------------
+
+\usecaptiontemplate{
+\small
+\structure{\insertcaptionname~\insertcaptionnumber:}
+\insertcaption}
+
+%-----------------------------------------------------------
+% Define colours (see beamerthemeconfposter.sty to change these colour definitions)
+%-----------------------------------------------------------
+
+\setbeamercolor{block title}{fg=ngreen,bg=white}
+\setbeamercolor{block body}{fg=black,bg=white}
+\setbeamercolor{block alerted title}{fg=white,bg=dblue!70}
+\setbeamercolor{block alerted body}{fg=black,bg=dblue!10}
+
+%-----------------------------------------------------------
+% Name and authors of poster/paper/research
+%-----------------------------------------------------------
+
+\title{Can Twitter Help Predict the Stock Market?}
+\author{Aaron Gonzales and Adam Delora}
+\institute{Department of Computer Science, University of New Mexico} 
+
+%-----------------------------------------------------------
+% Start the poster itself
+%-----------------------------------------------------------
+% The \rmfamily command is used frequently throughout the poster to force a serif font to be used for the body text
+% Serif font is better for small text, sans-serif font is better for headers (for readability reasons)
+%-----------------------------------------------------------
+
+
+\end_preamble
+\options final
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package none
+\inputencoding auto
+\fontencoding default
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 0
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 0
+\use_package mathtools 0
+\use_package mhchem 0
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Frame
+
+\begin_inset Argument 999
+status collapsed
+
+
+\begin_layout Standard
+t
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Columns
+
+\begin_inset Argument 999
+status collapsed
+
+
+\begin_layout Standard
+t
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+% the [t] option aligns the column's content at the top
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+begin{column}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+sepwid
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+end{column}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+% empty spacer column
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+begin{column}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+onecolwid
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout AlertBlock
+
+\begin_inset Argument 999
+status collapsed
+
+
+\begin_layout Standard
+The Big Question
+\end_layout
+
+\end_inset
+
+
+\family roman
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+If we combine semantic analysis with topic modeling, can we correlate our results with the market?
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Columns
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+vskip
+\end_layout
+
+\end_inset
+
+2ex 
+\end_layout
+
+\begin_deeper
+\begin_layout Block
+
+\begin_inset Argument 999
+status collapsed
+
+
+\begin_layout Standard
+Background
+\end_layout
+
+\end_inset
+
+
+\family roman
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family roman
+Twitter is a microblogging service with 284 million montly active users who post 500 million updates (
+\begin_inset Quotes eld
+\end_inset
+
+tweets
+\begin_inset Quotes erd
+\end_inset
+
+) per day. 
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+Latent Semantic Indexing is a technique used to summarize words (documents) into representative ideas similar to primary component analysis. 
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+the AFINN semantic indexing database assigns coded valence values to common words to allow quantification of a set of word's 
+\begin_inset Quotes eld
+\end_inset
+
+mood
+\begin_inset Quotes erd
+\end_inset
+
+. 
+\end_layout
+
+\end_deeper
+\begin_layout Block
+
+\family roman
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Columns
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+vskip
+\end_layout
+
+\end_inset
+
+2ex 
+\end_layout
+
+\begin_deeper
+\begin_layout Block
+
+\begin_inset Argument 999
+status collapsed
+
+
+\begin_layout Standard
+Methods
+\end_layout
+
+\end_inset
+
+
+\family roman
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+ We collected tweets using the public Twitter Streaming RESTful API over 2014-10-15 —2014-11-09 by tracking words that related to various tech stocks indexed by NASDAQ. NASDAQ market data was also stored over the same period. Tweets were preprocessed to remove common stopwords and latent semantic indexing was performed on one-hour bag-of-words bins of tweets, giving a total of xxx hours included in analysis. Each hour bin's LSI topics were scored using the AFINN database, resulting in a single number indicating semantic valence for each hour. This semantic data was combined with the stock data for visualization and analysis. A VAR model was performed to asses the predictive power of the semantic data against the stock data. 
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+
+\begin_layout Standard
+\align center
+
+\family roman
+
+\begin_inset Graphics 
+	filename code.png
+	width 10in
+
+\end_inset
+
+ 
+\begin_inset Newline newline
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Standard
+
+\family roman
+tracked keywords
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\family roman
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:corrSubsys"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Block
+
+\family roman
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Columns
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+end{column}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Columns
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+begin{column}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+sepwid
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+end{column}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+% empty spacer column
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+begin{column}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+twocolwid
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+% create a two-column-wide column and then we will split it up later
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Columns
+
+\begin_inset Argument 999
+status collapsed
+
+
+\begin_layout Standard
+t,totalwidth=
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+twocolwid
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+% split up that two-column-wide column
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+begin{column}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+onecolwid
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace -0.69in
+\end_inset
+
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Block
+
+\begin_inset Argument 999
+status collapsed
+
+
+\begin_layout Standard
+Summary Statistics
+\end_layout
+
+\end_inset
+
+
+\family roman
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+A correctable subsystem 
+\begin_inset Formula $\cl{B}$
+\end_inset
+
+ is said to be a 
+\emph on
+unitarily-correctable code
+\emph default
+ (UCC) for 
+\begin_inset Formula $\cl{E}$
+\end_inset
+
+ if the recovery operation is simply a conjugation-by-unitary channel 
+\begin_inset Formula $\cl{U}(\cdot) := U(\cdot)U^*$
+\end_inset
+
+. 
+\begin_inset VSpace 0.1in
+\end_inset
+
+ 
+\end_layout
+
+\begin_deeper
+\begin_deeper
+\begin_layout Standard
+
+\family roman
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+justifying
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+% the 
+\backslash
+justifying command forces the items in the list to have full justification (they don't by default)
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\family roman
+Since finding correctable subsystems in full generality is an extremely difficult problem, restricting our attention to unitarily-correctable codes seems potentially wise. 
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+These codes are of physical interest; they are codes in which the two-step process of recovery only involves the conjugation-by-unitary step (and not the projective measurement step). 
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+It has been shown 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "KS06"
+
+\end_inset
+
+ that if a quantum channel 
+\begin_inset Formula $\cl{E}$
+\end_inset
+
+ is unital, then we can unambiguously define 
+\emph on
+the unitarily-correctable code algebra
+\emph default
+ of 
+\begin_inset Formula $\cl{E}$
+\end_inset
+
+, denoted 
+\begin_inset Formula $UCC(\cl{E})$
+\end_inset
+
+, to be the albebra composed of the direct sum of all of the unitarily-correctable codes. 
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+In terms of Figure
+\begin_inset space ~
+
+\end_inset
+
+1, unitarily-correctable codes are those for which 
+\begin_inset Formula $p_1 = 1$
+\end_inset
+
+ and 
+\begin_inset Formula $p_2 = p_3 = 0$
+\end_inset
+
+ (i.e., there is just one block on the right). 
+\end_layout
+
+\end_deeper
+\begin_layout Block
+
+\family roman
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Columns
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+end{column}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+begin{column}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+onecolwid
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace -0.69in
+\end_inset
+
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Block
+
+\begin_inset Argument 999
+status collapsed
+
+
+\begin_layout Standard
+The Multiplicative Domain
+\end_layout
+
+\end_inset
+
+
+\family roman
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+The 
+\emph on
+multiplicative domain
+\emph default
+ of 
+\begin_inset Formula $\cl{E}$
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "Cho74"
+
+\end_inset
+
+, denoted 
+\begin_inset Formula $MD(\cl{E})$
+\end_inset
+
+, is defined to be the following set: 
+\begin_inset Formula \begin{align*}
+              \big\{ a \in \cl{L}(\cl{H}) : & \, \cl{E}(a)\cl{E}(b) = \cl{E}(ab)\text{ and } \\
+              & \, \cl{E}(b)\cl{E}(a) = \cl{E}(ba) \ \forall \, b \in \cl{L}(\cl{H}) \big\}.
+            \end{align*}
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family roman
+
+\begin_inset Formula $\cl{E}$
+\end_inset
+
+ behaves particularly nicely when restricted to 
+\begin_inset Formula $MD(\cl{E})$
+\end_inset
+
+ (as a 
+\begin_inset Formula $*$
+\end_inset
+
+-homomorphishm, in fact). 
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+
+\begin_inset Formula $MD(\cl{E})$
+\end_inset
+
+ was first studied by operator theorists over thirty years ago. 
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+
+\begin_inset Formula $MD(\cl{E})$
+\end_inset
+
+ is an algebra, and hence 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "Dav96"
+
+\end_inset
+
+ is unitarily equivalent to a direct sum of tensor blocks: 
+\begin_inset Formula \begin{equation}\label{opalgform}
+                MD(\cl{E}) \cong \oplus_k \big(I_{\mathcal{A}_k} \otimes \mathcal{L}(\mathcal{B}_k)\big) \, \oplus \, 0_\mathcal{K}.
+              \end{equation}
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Block
+
+\family roman
+
+\begin_inset VSpace 0.25in
+\end_inset
+
+ 
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+
+\begin_layout Standard
+\align center
+
+\family roman
+
+\begin_inset Graphics 
+	filename MD.png
+	width 10in
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Standard
+
+\family roman
+The action of a quantum channel on its multiplicative domain.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\family roman
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:multDom"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Block
+
+\family roman
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Columns
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+end{column}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Columns
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+vskip
+\end_layout
+
+\end_inset
+
+2.5ex 
+\end_layout
+
+\begin_deeper
+\begin_layout AlertBlock
+
+\begin_inset Argument 999
+status collapsed
+
+
+\begin_layout Standard
+The Great Connection
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+% an ACTUAL two-column-wide column
+\end_layout
+
+\end_inset
+
+
+\family roman
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+By looking at Figures 1 and 2, we expect that there might be some connection between correctable subsystems for a channel 
+\begin_inset Formula $\cl{E}$
+\end_inset
+
+ and its multiplicative domain. Indeed, one of our main results is that the two situations coincide when 
+\begin_inset Formula $\cl{E}$
+\end_inset
+
+ is unital and the subsystem is unitarily-correctable.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_deeper
+\begin_layout Columns
+
+\begin_inset Argument 999
+status collapsed
+
+
+\begin_layout Standard
+t,totalwidth=
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+twocolwid
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+begin{column}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+onecolwid
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Block
+
+\begin_inset Argument 999
+status collapsed
+
+
+\begin_layout Standard
+Main Result
+\end_layout
+
+\end_inset
+
+
+\family roman
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+
+\series bold
+Theorem.
+\series default
+ 
+\emph on
+Let 
+\begin_inset Formula $\cl{E}$
+\end_inset
+
+ be a unital quantum channel. Then 
+\begin_inset Formula $MD(\cl{E}) = UCC(\cl{E})$
+\end_inset
+
+.
+\emph default
+ 
+\end_layout
+
+\begin_deeper
+\begin_deeper
+\begin_layout Standard
+
+\family roman
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+justifying
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\family roman
+This theorem says that when we write 
+\begin_inset Formula $MD(\cl{E})$
+\end_inset
+
+ in the form of Equation
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "opalgform"
+
+\end_inset
+
+, the 
+\begin_inset Formula $\cl{B}_k$
+\end_inset
+
+'s are exactly the unitarily-correctable codes for 
+\begin_inset Formula $\cl{E}$
+\end_inset
+
+. 
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+When 
+\begin_inset Formula $\cl{E}$
+\end_inset
+
+ is not unital, 
+\begin_inset Formula $MD(\cl{E})$
+\end_inset
+
+ in general only captures a subclass of the unitarily-correctable codes for 
+\begin_inset Formula $\cl{E}$
+\end_inset
+
+. 
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+Because 
+\begin_inset Formula $MD(\cl{E})$
+\end_inset
+
+ is easy to compute, this provides a concrete method of finding some UCCs. 
+\end_layout
+
+\end_deeper
+\begin_layout Block
+
+\family roman
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Columns
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+end{column}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+begin{column}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+onecolwid
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Block
+
+\begin_inset Argument 999
+status collapsed
+
+
+\begin_layout Standard
+Generalization
+\end_layout
+
+\end_inset
+
+
+\family roman
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+In the same spirit as the multiplicative domain, we can define 
+\begin_inset Quotes eld
+\end_inset
+
+generalized multiplicative domains
+\begin_inset Quotes erd
+\end_inset
+
+ for channels by requiring not that the channel be multiplicative with itself, but rather that it be multiplicative with some 
+\begin_inset Formula $*$
+\end_inset
+
+-homomorphism. 
+\end_layout
+
+\begin_deeper
+\begin_deeper
+\begin_layout Standard
+
+\family roman
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+justifying
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\family roman
+Generalized multiplicative domains capture 
+\emph on
+all
+\emph default
+ correctable codes for 
+\emph on
+arbitrary
+\emph default
+ channels. 
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+Unlike the multiplicative domain, these algebras in general are very difficult to compute. 
+\end_layout
+
+\end_deeper
+\begin_layout Block
+
+\family roman
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Columns
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+end{column}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Columns
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+end{column}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+begin{column}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+sepwid
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+end{column}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+% empty spacer column
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+begin{column}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+onecolwid
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Block
+
+\begin_inset Argument 999
+status collapsed
+
+
+\begin_layout Standard
+Conclusions and Outlook
+\end_layout
+
+\end_inset
+
+
+\family roman
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+This characterization provides a simple way to find all unitarily-correctable codes for unital channels and even some codes for non-unital channels. General correctable subsystems can be characterized in terms of algebras that are analogous to the multiplicative domain, though in general it is not clear how to calculate them -- further research in this area would be of great interest.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Columns
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+vskip
+\end_layout
+
+\end_inset
+
+2ex 
+\end_layout
+
+\begin_deeper
+\begin_layout Block
+
+\begin_inset Argument 999
+status collapsed
+
+
+\begin_layout Standard
+For Further Information
+\end_layout
+
+\end_inset
+
+
+\size small
+
+\family roman
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+For the details of our work: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family roman
+
+\size small
+Choi, M.-D., Johnston, N., and Kribs, D. W.. Journal of Physics A: Mathematical and Theoretical 
+\series bold
+42
+\series default
+, 245303 (2009). 
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+
+\size small
+Johnston, N., and Kribs, D. W., 
+\emph on
+Generalized Multiplicative Domains and Quantum Error Correction
+\emph default
+ (2009, preprint). 
+\end_layout
+
+\end_deeper
+\begin_layout Block
+
+\family roman
+
+\size small
+
+\begin_inset VSpace 0.1in
+\end_inset
+
+Preprints and this poster can be downloaded from: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family roman
+
+\size small
+www.arxiv.org 
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+
+\size small
+www.nathanieljohnston.com 
+\end_layout
+
+\end_deeper
+\begin_layout Block
+
+\family roman
+
+\size small
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+
+\family default
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Columns
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+vskip
+\end_layout
+
+\end_inset
+
+2ex
+\end_layout
+
+\begin_deeper
+\begin_layout Block
+
+\begin_inset Argument 999
+status collapsed
+
+
+\begin_layout Standard
+References
+\end_layout
+
+\end_inset
+
+
+\size small
+
+\family roman
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Bibliography
+
+\family roman
+
+\size small
+
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label ""
+key "KLPL06"
+
+\end_inset
+
+ D.
+\begin_inset space ~
+
+\end_inset
+
+W. Kribs, R. Laflamme, D. Poulin, M. Lesosky, Quantum Inf. & Comp. 
+\series bold
+6
+\series default
+ (2006), 383-399. 
+\end_layout
+
+\begin_layout Bibliography
+
+\family roman
+
+\size small
+
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label ""
+key "zanardi97"
+
+\end_inset
+
+ P. Zanardi, M. Rasetti, Phys. Rev. Lett. 
+\series bold
+79
+\series default
+, 3306 (1997). 
+\end_layout
+
+\begin_layout Bibliography
+
+\family roman
+
+\size small
+
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label ""
+key "KS06"
+
+\end_inset
+
+ D.
+\begin_inset space ~
+
+\end_inset
+
+W. Kribs, R.
+\begin_inset space ~
+
+\end_inset
+
+W. Spekkens, Phys. Rev. A 
+\series bold
+74
+\series default
+, 042329 (2006). 
+\end_layout
+
+\begin_layout Bibliography
+
+\family roman
+
+\size small
+
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label ""
+key "Cho74"
+
+\end_inset
+
+ M.-D. Choi, Illinois J. Math., 
+\series bold
+18
+\series default
+ (1974), 565-574. 
+\end_layout
+
+\begin_layout Bibliography
+
+\family roman
+
+\size small
+
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label ""
+key "Dav96"
+
+\end_inset
+
+ K.
+\begin_inset space ~
+
+\end_inset
+
+R. Davidson, 
+\emph on
+
+\begin_inset Formula $C^*$
+\end_inset
+
+-algebras by example
+\emph default
+, Fields Institute Monographs, 6. American Mathematical Society, Providence, RI, 1996. 
+\end_layout
+
+\end_deeper
+\begin_layout Block
+
+\family roman
+
+\size small
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+
+\family default
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Columns
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+vskip
+\end_layout
+
+\end_inset
+
+2ex 
+\end_layout
+
+\begin_deeper
+\begin_layout Block
+
+\begin_inset Argument 999
+status collapsed
+
+
+\begin_layout Standard
+Acknowledgements
+\end_layout
+
+\end_inset
+
+
+\size small
+
+\family roman
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+Thank you to Dr. Abdullah Mueen for valuable conversations regarding our analysis and project.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Newline newline
+\end_inset
+
+ 
+\begin_inset VSpace 0.5in
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Block
+\align center
+
+\family roman
+
+\size small
+
+\begin_inset Tabular 
+<lyxtabular version="3" rows="1" columns="3">
+<features rotate="0" tabularvalignment="middle" tabularwidth="0pt">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\family roman
+
+\size small
+
+\begin_inset Graphics 
+	filename TO.png
+	width 3in
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\family roman
+
+\size small
+
+\begin_inset space \hspace{}
+\length 1.5in
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\family roman
+
+\size small
+
+\begin_inset Graphics 
+	filename guelph.png
+	width 3in
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Block
+
+\family roman
+
+\size small
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+block
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+column
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+begin{column}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+sepwid
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+end{column}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+% empty spacer column
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+columns
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+frame
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+document
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\family default
+
+\end_layout
+
+\end_deeper
+\begin_layout Columns
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+end{column}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_body
+\end_document

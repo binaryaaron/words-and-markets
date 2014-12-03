@@ -71,7 +71,7 @@
        \item Twitter is a microblogging service with 284 million monthly
          active users who post 500 million updates (``tweets'') per day.
        \item Latent Semantic Indexing is a technique used to summarize
-         words (documents) into representative ideas similar to primary
+         words (documents) into representative ideas similar to principle
          component analysis.
        \item The AFINN semantic indexing database (\cite{ANEW}) assigns coded valence
          values to common words to allow quantification of a set of word's
@@ -114,20 +114,18 @@
      \end{tikzfigure}
     %\end{wrapfigure}
      NASDAQ market data was collected over a slightly longer period, 2014-08-30
-     - 2014-11-09. Tweets were preprocessed to remove common stopwords and
-     transformed in a Latent semantic indexing
+     - 2014-11-09. Tweets were preprocessed to remove common stopwords. Latent semantic indexing
      was performed using Gensim \cite{rehurek_lrec}  on one-hour bag-of-words bins of
-     tweets, giving a total of xxx hours included in analysis. Each hour bin's
+     tweets, giving a total of xxx hours included in analysis. Each hour's
      LSI topics were scored using the AFINN database, resulting in a single
      number indicating semantic valence for each hour. The LSI score was
      smoothed using rolling means and assessed
      for periodicity.  Semantic data was combined with the stock data and
-     zscored for
-     visualization and analysis. A vector autoregressive (VAR) model was
-     performed to assess the predictive power of the semantic data against the
+     standardized for
+     visualization and analysis. A model was created using vector autoregression (VAR) to assess 	the predictive power of the semantic data against the
      stock data.
 
-     Using LSI would provide a topics like the following topic from 14:00-15:00
+     Within an hour LSI would provide a set of topics like the following topic from 14:00-15:00
      on 2014-10-16:
      \begin{tikzfigure}[Two LSI topics]
        \label{tab:topics}
@@ -207,7 +205,7 @@
    $(t = -2.312, p = 0.023)$, Facebook $(t = -2.527, p = 0.013)$, and Twitter
    $(t = 2.566, p = 0.012)$ and Granger's causality test concluded that there
    was a causal effect of LSI score on Amazon $(f = 9.68, p = 0.02)$ and
-   Twitter $(f = 132.5, p < 0.001)$.
+   Google $(f = 8.584039, p = 0.003)$.
    }
 
    \block{References and Acknowledgements}{
