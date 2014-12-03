@@ -28,14 +28,17 @@
 
 
 
- \documentclass[17pt, a1paper, portrait, margin=0mm, innermargin=10mm,
-     blockverticalspace=15mm, colspace=10mm, subcolspace=8mm]{tikzposter} %Default values for poster format options.
+ \documentclass[17pt, a1paper, portrait, margin=0mm, innermargin=1mm,
+     blockverticalspace=3mm, colspace=5mm, subcolspace=5mm]{tikzposter} %Default values for poster format options.
 
- %\tikzposterlatexaffectionproofon %shows small comment on how the poster was made at bottom of poster
+\tikzposterlatexaffectionproofoff %shows small comment on how the poster was made at bottom of poster
 \usepackage{exscale}
 \usepackage{listings}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 \usepackage{wrapfig}
+\usepackage[backend=biber]{biblatex}
+\addbibresource[datatype=bibtex]{dmposter.bib}
+
 
  % Commands
  \newcommand{\bs}{\textbackslash}   % backslash
@@ -52,13 +55,13 @@
 
  % -- PREDEFINED THEMES ---------------------- %
  % Choose LAYOUT:  Default, Basic, Rays, Simple, Envelope, Wave, Board, Autumn, Desert,
- \usetheme{Rays}
+\usetheme{Simple}
 %\usecolorstyle[colorPalette=BrownBlueOrange]{Germany}
 
 
  \begin{document}
 
- \maketitle[width=55cm, titletotopverticalspace=0.4cm]
+ \maketitle[width=55cm, titletotopverticalspace=0.0cm]
 
  \begin{columns}%blocks will be placed into columns
    \column{.50}
@@ -70,7 +73,7 @@
        \item Latent Semantic Indexing is a technique used to summarize
          words (documents) into representative ideas similar to primary
          component analysis.
-       \item The AFINN semantic indexing database assigns coded valence
+       \item The AFINN semantic indexing database (\cite{ANEW}) assigns coded valence
          values to common words to allow quantification of a set of word's
          ``mood''.
      \end{itemize}
@@ -78,9 +81,10 @@
 %%%%%%%%%%%%%%%%new block%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
    \block{Methods}{
      We collected tweets using the public Twitter Streaming RESTful API
-     over 2014-10-15 \textemdash 2014-11-09 by tracking words that related
+     over 2014-10-17 \textemdash 2014-11-09 by tracking words that related
      to various tech stocks indexed by NASDAQ.           
-     \begin{tikzfigure}[Several examples of tweets] 
+     \begin{tikzfigure}[Several examples of de-identified tweets from our
+       dataset] 
        \label{fig:tweets}
        \begin{itemize}
          \item \small{Maine nurse defies Ebola quarantine order by taking bike ride.
@@ -102,25 +106,29 @@
        \begin{tikzpicture}
          \node[anchor=north west] (note2) at (0,0)
          { \small{ebola, aapl, apple, mac, tim cook, goog,
-           google, gmail, youtube, microsoft, msft,
-           nadella, twrt, amazon, amzn, prime, aws, fb,
-         facebook}};
+           youtube, microsoft, msft }};
+         \node[anchor=north west] (note2) at (0,0.5)
+         { \small{nadella, twrt, amazon, amzn, prime, aws, fb,
+         facebook, google, gmail,}};
        \end{tikzpicture}
      \end{tikzfigure}
     %\end{wrapfigure}
-     NASDAQ market data was also collected over the same period. Tweets
-     were preprocessed to remove common stopwords and latent semantic
-     indexing was performed on one-hour bag-of-words bins of tweets,
-     giving a total of xxx hours included in analysis. Each hour bin's LSI
-     topics were scored using the AFINN database, resulting in a single
+     NASDAQ market data was collected over a slightly longer period, 2014-08-30
+     - 2014-11-09. Tweets were preprocessed to remove common stopwords and
+     transformed in a Latent semantic indexing
+     was performed using Gensim \cite{rehurek_lrec}  on one-hour bag-of-words bins of
+     tweets, giving a total of xxx hours included in analysis. Each hour bin's
+     LSI topics were scored using the AFINN database, resulting in a single
      number indicating semantic valence for each hour. The LSI score was
-     smoothed using rolling means (Figure \ref{fig:rollingmeans} and
-     assessed for periodicity.  semantic data was combined with the stock
-     data for visualization and analysis. A vector autoregressive (VAR)
-     model was performed to assess the predictive power of the semantic
-     data against the stock data.
+     smoothed using rolling means and assessed
+     for periodicity.  Semantic data was combined with the stock data and
+     zscored for
+     visualization and analysis. A vector autoregressive (VAR) model was
+     performed to assess the predictive power of the semantic data against the
+     stock data.
 
-     Using LSI would provide something like the following topic:
+     Using LSI would provide a topics like the following topic from 14:00-15:00
+     on 2014-10-16:
      \begin{tikzfigure}[Two LSI topics]
        \label{tab:topics}
        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
@@ -148,18 +156,19 @@
              %\end{tikzfigure}
            %\end{wrapfigure}
            \begin{itemize}
-             \item Total tweets collected: 84 million
-             \item Total hours analyzed: 218
-           %  \item Mean number of tweets per hour:
-             \item Mean semantic score:  
+             \item \small{Total tweets collected: 84 million}
+             \item \small{Total hours analyzed: 218}
+             \item \small{Number of tweets per hour: 205,200; std 71,700}
+             \item \small{Mean semantic score:  4.78; std 1.39}
            \end{itemize}
            blah
            %\begin{wrapfigure}{l}{0.8\linewidth}
-           \begin{tikzfigure}[ Word cloud of LSI topics for time xxx ]
+           \begin{tikzfigure}[Word clouds generated from topics on 2014-10-30,
+             11:00-12:00 and 12:00 - 13:00]
              \label{fig:wordcloud}
              {\includegraphics[width=0.35\linewidth]{../analysis/img170.png}}
              {\includegraphics[width=0.35\linewidth]{../analysis/img173.png}}
-             {\includegraphics[width=0.46\linewidth]{figures/lsi_rolling_means.png}}
+             %{\includegraphics[width=0.46\linewidth]{figures/lsi_rolling_means.png}}
            \end{tikzfigure}
          %\end{wrapfigure}
          }
@@ -171,21 +180,39 @@
          \column{.5}
 %%%%%%%%%%%%%%%%new block%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
          \block{Stocks}{
-           \begin{tikzfigure}[Rolling means of LSI score per hour over
-             sample.] \label{fig:means}
-             \includegraphics[width=7in]{figures/autocorr_plot.pdf}
+           \begin{tikzfigure}[Rolling means of z-scored LSI score and stock prices per hour]
+             \label{fig:means}
+             \includegraphics[width=8in]{figures/stock_plot_with_lsi}
            \end{tikzfigure}
          }
 %%%%%%%%%%%%%%%%new block%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-   \block{VAR model results}{
-    Vector Autoregression (VAR) models are used to model multivariate time
+   \block{Results}{
+   %\begin{wrapfigure}{l}{0.8\linewidth}
+    \begin{tikzfigure}[Impulse Response analysis of LSI score change]
+     \label{fig:impulseresponse}
+     \includegraphics[width=7in]{figures/impulse_responses}
+   \end{tikzfigure}
+   %\end{wrapfigure}
+    VAR models are used to model multivariate time
     series. They describe a set of $k$ variables as a linear function of
     their previous values. A $p$-th order VAR model is denoted by
-    $y_t = c + A_1 y_{t-1} + A_2 y_{t-2} + \cdots + A_p y_{t-p} + e_t$
-    A VAR model is often used with a lag operator that operates on the
+    $y_t = c + A_1 y_{t-1} + A_2 y_{t-2} + \cdots + A_p y_{t-p} + e_t$.
+    VAR models are often used with a lag parameter that operates on the
     elements of a time series to produce the previous element. We determined
-    the lag order by employing an information criteria-based order selection. 
+    the lag order by employing an information criteria-based order selection
+    which led us to use a lag of 1 hour in the model. Python/Statsmodels
+    \cite{statsmodels2010} were used for analysis.
+
+   Our VAR model indicated LSI score was a significant predictor of Amazon
+   $(t = -2.312, p = 0.023)$, Facebook $(t = -2.527, p = 0.013)$, and Twitter
+   $(t = 2.566, p = 0.012)$ and Granger's causality test concluded that there
+   was a causal effect of LSI score on Amazon $(f = 9.68, p = 0.02)$ and
+   Twitter $(f = 132.5, p < 0.001)$.
+   }
+
+   \block{References and Acknowledgements}{
+     \renewcommand*{\bibfont}{\footnotesize}
+     \printbibliography
    }
 
  \end{columns}
