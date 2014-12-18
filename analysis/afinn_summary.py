@@ -1,9 +1,13 @@
+"""
+Modifed from 
+https://gist.github.com/joshz/3146444
+"""
 import math,re,sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
 # AFINN-111 is as of June 2011 the most recent version of AFINN
-filenameAFINN = '/home/agonzales/git/mining-moods-markets/src/AFINN/AFINN-111.txt'
+filenameAFINN = '/Users/carlyhendrickson/git/mining-moods-markets/src/AFINN/AFINN-111.txt'
 afinn = dict(map(lambda (w, s): (w, int(s)), [ 
   ws.strip().split('\t') for ws in open(filenameAFINN) ]))
 
