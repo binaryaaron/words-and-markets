@@ -102,7 +102,7 @@ class StdOutListener(StreamListener):
             decoded['user']['created_at'] = datetime.datetime.strptime(decoded['user']['created_at'],'%a %b %d %H:%M:%S +0000 %Y')
         except:
             pass
-            print 'failed to parse date'
+            print('failed to parse date')
         if self.counter  == 5000:
             print(decoded)
             print('mongodb has ' + str(tweets.count()) + ' tweets')
@@ -110,16 +110,16 @@ class StdOutListener(StreamListener):
         try:
             tweets.insert(decoded)
         except IOError as exc:
-            print exc
+            print(exc)
             # Do not fail if a directory is found, just ignore it.
             if exc.errno != errno.EISDIR:
-                print exc
+                print(exc)
                 raise # Propag
         return # end of function
 
     def on_error(self, status_code):
         print('Got an error with status code: ' + str(status_code))
-        print status_code
+        print(status_code)
         return True # To continue listening
 
     def on_timeout(self):
@@ -145,7 +145,7 @@ if __name__ == '__main__':
                             # 'nadella'])
         stream.sample()
     except:
-        print "Unexpected error:", sys.exc_info()[0]
-        print sys.exc_info()
+        print("Unexpected error:", sys.exc_info()[0])
+        print(sys.exc_info())
 
 
